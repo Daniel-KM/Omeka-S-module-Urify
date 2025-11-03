@@ -1,0 +1,8 @@
+@media all {
+    header nav .urify::before,
+    .urify .subhead::before,
+    .urify .no-resources::before,
+    #urify.empty+.no-resources::before {
+        content: ""; /* fas fa-link */
+    }
+}

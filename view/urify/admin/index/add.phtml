@@ -1,0 +1,37 @@
+<?php
+/**
+ * @var \Laminas\View\Renderer\PhpRenderer $this
+ * @var \Urify\Form\UrifyForm $form
+ */
+
+$plugins = $this->getHelperPluginManager();
+$assetUrl = $plugins->get('assetUrl');
+$translate = $plugins->get('translate');
+
+$this->headLink()
+    ->appendStylesheet($assetUrl('css/urify.css', 'Urify'));
+
+$this->htmlElement('body')->appendAttribute('class', 'urify urify-index');
+?>
+
+<?= $this->pageTitle($translate('Prepare search'), 1, $translate('Urify')) ?>
+
+<div id="page-actions">
+    <button type="submit" form="urify-form"><?= $translate('Submit') ?></button>
+</div>
+
+<nav class="section-nav">
+    <?= $this->navigation('Laminas\Navigation\Urify')->menu() ?>
+</nav>
+
+<div class="block">
+    <p>
+        <?= $translate('The list of references can be provided as a spreadsheet (OpenDocument recommended) or as a list.') ?>
+        <?= $translate('The references can be formatted or not, so the search will be a specific or generic search.') ?>
+        <?= $translate('If the references are formatted, the headers should be the properties or the Dublin Core names, for example dcterms:creator, dcterms:title, dcterms:date or Creator, Title, Date.') ?>
+    </p>
+</div>
+
+<div class="block">
+	<?= $this->form($form) ?>
+</div>

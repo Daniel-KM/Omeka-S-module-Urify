@@ -1,0 +1,102 @@
+<?php
+/**
+ * @var \Laminas\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\JobRepresentation[] $jobs
+ * @var string $baseUrlFiles
+ */
+
+$plugins = $this->getHelperPluginManager();
+$url = $plugins->get('url');
+$i18n = $plugins->get('i18n');
+$escape = $plugins->get('escapeHtml');
+$jobState = $plugins->has('jobState') ? $plugins->get('jobState') : null;
+$assetUrl = $plugins->get('assetUrl');
+$translate = $plugins->get('translate');
+$hyperlink = $plugins->get('hyperlink');
+
+$hasLog = isset($jobState);
+if ($hasLog) {
+    $this->headLink()
+        ->appendStylesheet($assetUrl('css/job.css', 'Log'))
+        ->appendStylesheet($assetUrl('css/log.css', 'Log'));
+    $this->headScript()
+        ->appendFile($assetUrl('js/job.js', 'Log'), 'text/javascript', ['defer' => 'defer'])
+        ->appendFile($assetUrl('js/log.js', 'Log'), 'text/javascript', ['defer' => 'defer']);
+}
+
+$this->headLink()
+    ->appendStylesheet($assetUrl('css/urify.css', 'Urify'));
+
+$this->htmlElement('body')->appendAttribute('class', 'urify browse');
+?>
+
+<?= $this->pageTitle($translate('Browse'), 1, $translate('Urify')) ?>
+
+<nav class="section-nav">
+    <?= $this->navigation('Laminas\Navigation\Urify')->menu() ?>
+</nav>
+
+<?php if ($jobs): ?>
+
+<?php $this->trigger('view.browse.before'); ?>
+
+<div class="block">
+    <table class="tablesaw batch-edit" data-tablesaw-mode="stack">
+        <thead>
+            <tr>
+                <th>
+                    <?= $translate('Name') ?>
+                </th>
+                <th><?= $escape($translate('Date')) ?></th>
+                <th><?= $escape($translate('Status/Log/Params')) ?></th>
+                <th><?= $escape($translate('Spreadsheet')) ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach ($jobs as $job):
+                $stateHtml = $jobState($job, ['output' => 'html']);
+                $spreadsheet = $job->args()['spreadsheet'] ?? null;
+                ?>
+            <tr>
+                <td>
+                    <?= $hyperlink($job->args()['label'] ?: sprintf('Job #%d', $job->id()), $url('admin/urify/id', ['id' => $job->id(), 'action' => 'show'])) ?>
+                </td>
+                <td><?= $job->started() ? $i18n->dateFormat($job->started(), 'medium', 'medium') : $translate('Not started') ?></td>
+                <td>
+                    <div class="log-job job-status" data-job-id="<?= $job->id() ?>">
+                        <?php if ($stateHtml): ?>
+                            <?= $jobState($job, ['output' => 'html', 'include_job_status' => true]) ?>
+                            <?= $hyperlink($translate('Logs'), $hasLog
+                                ? $url('admin/default', ['controller' => 'log'], ['query' => ['job_id' => $job->id()]])
+                                : $url('admin/id', ['controller' => 'job', 'action' => 'log', 'id' => $job->id()])) ?>
+                        <span class="log-job-param"><em><?= $hyperlink($translate('Parameters'), $url('admin/id', ['controller' => 'job', 'action' => 'show', 'id' => $job->id()])) ?></em></span>
+                        <?php else: ?>
+                        <span class="log-job-status job-status-label">
+                            <?= $hyperlink($translate($job->statusLabel()), $hasLog
+                                ? $url('admin/default', ['controller' => 'log'], ['query' => ['job_id' => $job->id()]])
+                                : $url('admin/id', ['controller' => 'job', 'action' => 'log', 'id' => $job->id()])) ?>
+                        </span>
+                        &nbsp;
+                        <span class="log-job-param"><em><?= $hyperlink($translate('Parameters'), $url('admin/id', ['controller' => 'job', 'action' => 'show', 'id' => $job->id()])) ?></em></span>
+                        <?php endif; ?>
+                    </div>
+                </td>
+                <td><?= $spreadsheet ? $hyperlink($spreadsheet, $baseUrlFiles . '/urify/' . $spreadsheet) : '' ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<?php $this->trigger('view.browse.after'); ?>
+
+<?php else: ?>
+
+<div class="block no-resources no-files">
+    <p>
+        <?= $translate('No urification.') ?>
+    </p>
+</div>
+
+<?php endif; ?>

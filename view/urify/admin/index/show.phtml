@@ -1,0 +1,121 @@
+<?php
+/**
+ * @var \Laminas\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\JobRepresentation $job
+ * @var array $results
+ * @var string $baseUrlFiles
+ */
+
+$plugins = $this->getHelperPluginManager();
+$url = $plugins->get('url');
+$i18n = $plugins->get('i18n');
+$escape = $plugins->get('escapeHtml');
+$jobState = $plugins->has('jobState') ? $plugins->get('jobState') : null;
+$assetUrl = $plugins->get('assetUrl');
+$translate = $plugins->get('translate');
+$hyperlink = $plugins->get('hyperlink');
+
+$hasLog = isset($jobState);
+if ($hasLog) {
+    $this->headLink()
+        ->appendStylesheet($assetUrl('css/job.css', 'Log'))
+        ->appendStylesheet($assetUrl('css/log.css', 'Log'));
+    $this->headScript()
+        ->appendFile($assetUrl('js/job.js', 'Log'), 'text/javascript', ['defer' => 'defer'])
+        ->appendFile($assetUrl('js/log.js', 'Log'), 'text/javascript', ['defer' => 'defer']);
+}
+
+$this->headLink()
+    ->appendStylesheet($assetUrl('css/urify.css', 'Urify'));
+
+$this->htmlElement('body')->appendAttribute('class', 'urify show');
+
+$baseUrl = $url('admin/default', ['controller' => 'item', 'action' => 'browse']);
+
+$hasError = $job->status() === \Omeka\Entity\Job::STATUS_ERROR;
+?>
+
+<?= $this->pageTitle(sprintf($translate('Job #%d'), $job->id()), 1, $translate('Urify')) ?>
+
+<nav class="section-nav">
+    <?= $this->navigation('Laminas\Navigation\Urify')->menu() ?>
+</nav>
+
+<div class="block">
+    <h2><?= $escape($job->args()['label'] ?: sprintf('Job #%d', $job->id())) ?></h2>
+    <p><?= $job->started() ? $i18n->dateFormat($job->started(), 'medium', 'medium') : $translate('Not started') ?></p>
+    <?php if ($v = ($jobState && $jobState($job))): ?>
+    <?= $jobState($job, ['output' => 'html']) ?>
+    <?php endif; ?>
+	<p>
+		<?= $v ? '' : sprintf('%s.', $translate($job->statusLabel())) ?>
+		<?php if ($spreadsheet = $job->args()['spreadsheet'] ?? null): ?>
+        <?= sprintf($translate('See %1$sspreadsheet%2$s.'), sprintf('<a href="%s">', $baseUrlFiles . '/urify/' . $spreadsheet), '</a>') ?>
+		<?php endif; ?>
+		<?= sprintf($hasError
+		    ? $translate('See errors in job %1$slogs%2$s and %3$sparams%2$s.')
+	        : $translate('See job %1$slogs%2$s and %3$sparams%2$s.'),
+		    class_exists('Log\Module', false)
+                ? sprintf('<a href="%1$s">', $url('admin/default', ['controller' => 'log'], ['query' => ['job_id' => $job->id()]]))
+                : sprintf('<a href="%1$s" target="_blank">', $url('admin/id', ['controller' => 'job', 'action' => 'log', 'id' => $job->id()])),
+            '</a>',
+		    '<a href="' . $job->adminUrl() . '">'
+	    ) ?>
+    </p>
+</div>
+
+<?php if ($results): ?>
+
+<div class="block">
+
+    <table class="tablesaw batch-edit" data-tablesaw-mode="stack">
+        <thead>
+            <tr>
+                <?php foreach (array_keys(reset($results)) as $name): ?>
+                <th><?= $escape($name) ?></th>
+                <?php endforeach; ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($results as $result): ?>
+            <tr>
+                <?php $isFirst = true; ?>
+                <?php foreach ($result as $column): ?>
+                <td>
+                    <?php if ($isFirst): ?>
+                        <?php $isFirst = false; ?>
+                        <?php if (!is_array($column)): // Input simple reference. ?>
+                        <?= $escape($column) ?>
+                        <?php else: ?>
+                        <?= $escape(implode(' ; ', $column)) ?>
+                        <?php endif; ?>
+                    <?php elseif ($column): ?>
+                    <ul>
+                        <?php foreach ($column as $urlOrId => $label): ?>
+                        <li><?= is_numeric($urlOrId)
+                            ? $hyperlink($label ?: sprintf('#%d', $urlOrId), $baseUrl . '/' . $urlOrId)
+                           : $hyperlink($label, $urlOrId) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php else: ?>
+                    <span class="no-results"></span>
+                    <?php endif; ?>
+                </td>
+                <?php endforeach; ?>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <?php // TODO Export. ?>
+</div>
+
+<?php else: ?>
+
+<div class="block no-resources no-files">
+    <p>
+        <?= $translate('No results.') ?>
+    </p>
+</div>
+
+<?php endif; ?>

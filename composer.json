@@ -1,0 +1,43 @@
+{
+    "name": "daniel-km/omeka-s-module-urify",
+    "description": "Module for Omeka S that allows to check and convert literal values to normalized uri managed via Value Suggest, for example IdRef.",
+    "type": "library",
+    "license": "CECILL-2.1",
+    "authors": [
+        {
+            "name": "Daniel Berthereau",
+            "email": "Daniel.packagist@Berthereau.net"
+        }
+    ],
+    "homepage": "https://gitlab.com/Daniel-KM/Omeka-S-module-Urify",
+    "support": {
+        "issues": "https://gitlab.com/Daniel-KM/Omeka-S-module-Urify/-/issues",
+        "forum": "https://forum.omeka.org/"
+    },
+    "keywords": [
+        "Omeka S",
+        "module",
+        "admin",
+        "curation"
+    ],
+    "require": {
+        "openspout/openspout": "^3.7"
+    },
+    "require-dev": {
+        "biblibre/omeka-s-test-helper": "dev-master"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "UrifyTest\\": "test/UrifyTest/"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "7.4"
+        },
+        "allow-plugins": {
+            "composer/installers": true,
+            "oomphinc/composer-installers-extender": true
+        }
+    }
+}
