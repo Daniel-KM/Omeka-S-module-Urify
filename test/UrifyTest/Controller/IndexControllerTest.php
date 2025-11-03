@@ -2,7 +2,9 @@
 
 namespace UrifyTest\Controller;
 
-class IndexControllerTest extends UrifyControllerTestCase
+use Omeka\Test\AbstractHttpControllerTestCase;
+
+class IndexControllerTest extends AbstractHttpControllerTestCase
 {
     public function testIndexActionCanBeAccessed(): void
     {
