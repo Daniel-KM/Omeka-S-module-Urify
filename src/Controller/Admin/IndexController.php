@@ -2,13 +2,16 @@
 
 namespace Urify\Controller\Admin;
 
+use Common\Mvc\Controller\Plugin\JSend;
 use Common\Stdlib\PsrMessage;
+use Laminas\Http\Response as HttpResponse;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use Omeka\DataType\Manager as DataTypeManager;
 use Omeka\Mvc\Exception\NotFoundException;
 use Urify\Form\UrifyForm;
 use Urify\Job\UrifyValues;
+use Urify\Job\UrifyValuesApply;
 
 class IndexController extends AbstractActionController
 {
@@ -69,9 +72,9 @@ class IndexController extends AbstractActionController
             $modes = [$modes];
         }
 
-        $dataTypes = $params['datatypes'] ?? [];
-        if (!$dataTypes) {
-            $this->messenger()->addError('No source data types defined.'); // @translate
+        $valueTypes = $params['value_types'] ?? [];
+        if (!$valueTypes) {
+            $this->messenger()->addError('No value types defined.'); // @translate
             return $view;
         }
 
@@ -108,7 +111,7 @@ class IndexController extends AbstractActionController
             'query' => $query,
             'modes' => $modes,
             'properties' => $properties,
-            'datatypes' => $dataTypes,
+            'value_types' => $valueTypes,
             'datatype' => $dataType,
             'language' => empty($params['language']) ? null : $params['language'],
         ];
@@ -189,5 +192,91 @@ class IndexController extends AbstractActionController
             'baseUrlFiles' => $baseUrlFiles,
             'dataTypeManager' => $this->dataTypeManager,
         ]);
+    }
+
+
+    public function applyAction()
+    {
+        if (!$this->getRequest()->isPost()) {
+            return $this->jSend(JSend::FAIL, [
+                'message' => $this->translate('Not found'), // @translate
+            ], null, HttpResponse::STATUS_CODE_404);
+        }
+
+        $id = $this->params('id');
+        try {
+            /** @var \Omeka\Api\Representation\JobRepresentation $job */
+            $job = $this->api()->read('jobs', ['id' => $id, 'class' => UrifyValues::class])->getContent();
+        } catch (\Exception $e) {
+            return $this->jSend(JSend::FAIL, [
+                'message' => $this->translate('Not found'), // @translate
+            ], null, HttpResponse::STATUS_CODE_404);
+        }
+
+        $jobArgs = $job->args();
+
+        $params = $this->params()->fromPost();
+        $property = $params['property'] ?? null;
+        $property = $this->easyMeta()->propertyTerm($property);
+        $value = trim((string) ($params['value'] ?? ''));
+        $uri = $params['uri'] ?? null;
+        $label = trim((string) ($params['label'] ?? ''));
+        $dataType = $jobArgs['datatype'] ?? null;
+
+        if (!strlen($value)
+            || !$uri
+            || !$property
+            || !$dataType
+            || !$this->dataTypeManager->has($dataType)
+        ) {
+            return $this->jSend(JSend::FAIL, [
+                'message' => $this->translate('Missing required parameters.'), // @translate
+            ], null, HttpResponse::STATUS_CODE_404);
+        }
+
+        // Api batchUpdate cannot be used, because it does not support to update
+        // a single property value.
+        // Standard omeka batch update may be used, but it runs multiple
+        // sub-batch-update and is not optimized for this case.
+        // So use a specific job.
+
+        $query = $jobArgs['query'] ?? [];
+
+        // Use the default omeka job.
+        $args = [
+            'value' => $value,
+            'uri' => $uri,
+            'label' => strlen($label) ? $label : null,
+            'property' => $property,
+            'datatype' => $dataType,
+            'value_types' => $jobArgs['value_types'] ?? [],
+            'query' => $query,
+        ];
+
+        /** @var \Omeka\Mvc\Controller\Plugin\JobDispatcher $dispatcher */
+        // Use synchronous dispatcher for quick testing purpose.
+        $strategy = null;
+        // $strategy = $this->api()->read('vocabularies', 1)->getContent()->getServiceLocator()->get(\Omeka\Job\DispatchStrategy\Synchronous::class);
+        $dispatcher = $this->jobDispatcher();
+        $job = $dispatcher->dispatch(UrifyValuesApply::class, $args, $strategy);
+        $urlPlugin = $this->url();
+        $message = new PsrMessage(
+            'Processing {link_result}urification{link_end} of values in background (job {link_job}#{job_id}{link_end}, {link_log}logs{link_end}).', // @translate
+            [
+                'link_result' => sprintf('<a href="%s">', $urlPlugin->fromRoute('admin/urify/id', ['id' => $job->getId()])),
+                'link_job' => sprintf(
+                    '<a href="%s">',
+                    htmlspecialchars($urlPlugin->fromRoute('admin/id', ['controller' => 'job', 'id' => $job->getId()]))
+                ),
+                'job_id' => $job->getId(),
+                'link_end' => '</a>',
+                'link_log' => class_exists('Log\Module', false)
+                    ? sprintf('<a href="%1$s">', $urlPlugin->fromRoute('admin/default', ['controller' => 'log'], ['query' => ['job_id' => $job->getId()]]))
+                    : sprintf('<a href="%1$s" target="_blank">', $urlPlugin->fromRoute('admin/id', ['controller' => 'job', 'action' => 'log', 'id' => $job->getId()])),
+            ]
+        );
+        $message->setEscapeHtml(false);
+
+        return $this->jSend(JSend::SUCCESS, ['args' => $args], $message->setTranslator($this->translator()));
     }
 }

@@ -157,10 +157,10 @@ use Omeka\Form\Element as OmekaElement;
             ])
 
             ->add([
-                'name' => 'datatypes',
+                'name' => 'value_types',
                 'type' => Element\MultiCheckbox::class,
                 'options' => [
-                    'label' => 'Source data types to process', // @translate
+                    'label' => 'Value types to process', // @translate
                     // Unlike bulkedit, there is no conversion between data types.
                     // So uri should be converted first.
                     'value_options' => [
@@ -172,7 +172,7 @@ use Omeka\Form\Element as OmekaElement;
                     ],
                 ],
                 'attributes' => [
-                    'id' => 'fill_datatypes',
+                    'id' => 'fill_value_types',
                     'value' => [
                         'literal',
                         'custom_vocab_literal'

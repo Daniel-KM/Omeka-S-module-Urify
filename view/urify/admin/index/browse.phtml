@@ -75,23 +75,13 @@ $baseUrlProperty = $hasAdvancedSearch
                 $query = $jobArgs['query'] ?? [];
                 $dataType = $jobArgs['datatype'] ?? null;
                 if ($hasAdvancedSearch) {
-                    $dts = $jobArgs['datatypes'] ?? null;
                     $dataTypes = [];
-                    if (in_array('literal', $dts)) {
-                        $dataTypes[] = 'literal';
-                    }
-                    if (in_array('uri', $dts)) {
-                        $dataTypes[] = 'uri';
-                    }
-                    if (in_array('specified', $dts)) {
-                        $dataTypes[] = $dataType;
-                    }
-                    if (in_array('custom_vocab_literal', $dts)) {
-                        $dataTypes  = array_merge($dataTypes, array_values(array_filter($mainCustomVocabs, fn ($v) => $v === 'literal')));
-                    }
-                    if (in_array('custom_vocab_uri', $dts)) {
-                        $dataTypes  = array_merge($dataTypes, array_values(array_filter($mainCustomVocabs, fn ($v) => $v === 'uri')));
-                    }
+                    $valueTypes = $jobArgs['value_types'] ?? [];
+                    if (in_array('literal', $valueTypes)) $dataTypes[] = 'literal';
+                    if (in_array('uri', $valueTypes)) $dataTypes[] = 'uri';
+                    if (in_array('specified', $valueTypes)) $dataTypes[] = $dataType;
+                    if (in_array('custom_vocab_literal', $valueTypes)) $dataTypes = array_merge($dataTypes, array_values(array_filter($mainCustomVocabs, fn ($v) => $v === 'literal')));
+                    if (in_array('custom_vocab_uri', $valueTypes)) $dataTypes = array_merge($dataTypes, array_values(array_filter($mainCustomVocabs, fn ($v) => $v === 'uri')));
                     $dataTypes  = array_unique($dataTypes);
                     $urlProperty = $url('admin/default', ['controller' => 'item', 'action' => 'browse'], ['query' => ['filter' => ['field' => $properties, 'type' => 'dtp', 'val' => $dataTypes]]]);
                 } else {

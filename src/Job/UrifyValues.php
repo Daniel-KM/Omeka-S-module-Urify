@@ -8,6 +8,8 @@ use Doctrine\DBAL\Query\QueryBuilder;
 
 class UrifyValues extends AbstractJob
 {
+    use ValueTypesTrait;
+
     /**
      * Limit for the loop to avoid heavy sql requests.
      *
@@ -108,7 +110,7 @@ class UrifyValues extends AbstractJob
 
         // The reference id is the job id for now.
         $referenceIdProcessor = new \Laminas\Log\Processor\ReferenceId();
-        $referenceIdProcessor->setReferenceId('urify/index_' . $this->job->getId());
+        $referenceIdProcessor->setReferenceId('urify/search_' . $this->job->getId());
 
         $this->logger = $services->get('Omeka\Logger');
         $this->logger->addProcessor($referenceIdProcessor);
@@ -122,10 +124,14 @@ class UrifyValues extends AbstractJob
 
         // Check and prepare each option.
 
+        // The status of error should be set just before return, else it can be
+        // reset to "in_progress".
+        $hasError = false;
+
         $this->modes = $this->getArg('modes');
         $this->modes = array_intersect(['miss', 'check'], $this->modes);
         if (!$this->modes) {
-            $this->job->setStatus(\Omeka\Entity\Job::STATUS_ERROR);
+            $hasError = true;
             $this->logger->err('No processes defined.'); // @translate
         }
         $modeMiss = in_array('miss', $this->modes);
@@ -134,13 +140,13 @@ class UrifyValues extends AbstractJob
         $this->properties = $this->getArg('properties');
         $this->properties = $this->properties ? $this->easyMeta->propertyIds($this->properties) : null;
         if (!$this->properties) {
-            $this->job->setStatus(\Omeka\Entity\Job::STATUS_ERROR);
+            $hasError = true;
             $this->logger->err('No properties provided.'); // @translate
         }
 
         $this->dataType = $this->getArg('datatype');
         if (!$this->dataType || !$this->easyMeta->dataTypeName($this->dataType)) {
-            $this->job->setStatus(\Omeka\Entity\Job::STATUS_ERROR);
+            $hasError = true;
             $this->logger->err('No data type provided.'); // @translate
         }
 
@@ -162,40 +168,9 @@ class UrifyValues extends AbstractJob
         }
         */
 
-        $dataTypes = $this->getArg('datatypes') ?: [];
-        if (!$dataTypes) {
-            $this->job->setStatus(\Omeka\Entity\Job::STATUS_ERROR);
-            $this->logger->err('No source data types provided.'); // @translate
-        }
-
-        // Prepare source data types.
-        $this->dataTypesSource = [];
-        if (in_array('literal', $dataTypes)) {
-            $this->dataTypesSource[] = 'literal';
-        }
-        if (in_array('uri', $dataTypes)) {
-            $this->dataTypesSource[] = 'uri';
-        }
-        if (in_array('specified', $dataTypes)) {
-            $this->dataTypesSource[] = $this->dataType;
-        }
-        if (in_array('custom_vocab_literal', $dataTypes)) {
-            $mainCustomVocabs = $this->easyMeta->dataTypeMainCustomVocabs();
-            $this->dataTypesSource = array_merge(
-                $this->dataTypesSource,
-                array_values(array_filter($mainCustomVocabs, fn ($v) => $v === 'literal'))
-            );
-        }
-        if (in_array('custom_vocab_uri', $dataTypes)) {
-            $mainCustomVocabs = $this->easyMeta->dataTypeMainCustomVocabs();
-            $this->dataTypesSource = array_merge(
-                $this->dataTypesSource,
-                array_values(array_filter($mainCustomVocabs, fn ($v) => $v === 'uri'))
-            );
-        }
-        $this->dataTypesSource = array_unique($this->dataTypesSource);
-        if ($dataTypes && !$this->dataTypesSource) {
-            $this->job->setStatus(\Omeka\Entity\Job::STATUS_ERROR);
+        $this->dataTypesSource = $this->dataTypesFromValueTypes($this->getArg('value_types'));
+        if (!$this->dataTypesSource) {
+            $hasError = true;
             $this->logger->err('No source data types provided.'); // @translate
         }
 
@@ -212,18 +187,18 @@ class UrifyValues extends AbstractJob
         } elseif ($modeCheck) {
             // Only check uri, so source should be the specified data type.
             $this->dataTypesSource = [$this->dataType];
-            $this->job->setStatus(\Omeka\Entity\Job::STATUS_ERROR);
+            $hasError = true;
             $this->logger->err('The process to check uris is not yet implemented.'); // @translate
         }
         if (!$this->dataTypesSource) {
-            $this->job->setStatus(\Omeka\Entity\Job::STATUS_ERROR);
+            $hasError = true;
             $this->logger->err('No source data types matching options.'); // @translate
         }
 
         $this->language = $this->getArg('language') ?: null;
 
         if (!class_exists('ValueSuggest\Module', false)) {
-            $this->job->setStatus(\Omeka\Entity\Job::STATUS_ERROR);
+            $hasError = true;
             $this->logger->err(
                 'The module Value Suggest is required to get uris.' // @translate
             );
@@ -245,7 +220,7 @@ class UrifyValues extends AbstractJob
                 }
             }
             if ($errorDataType) {
-                $this->job->setStatus(\Omeka\Entity\Job::STATUS_ERROR);
+                $hasError = true;
                 $this->logger->err(
                     'The data type {data_type} is not available.', // @translate
                     ['data_type' => $this->dataType]
@@ -253,7 +228,9 @@ class UrifyValues extends AbstractJob
             }
         }
 
-        if ($this->job->getStatus() === \Omeka\Entity\Job::STATUS_ERROR) {
+        if ($hasError) {
+            // Anyway, the status will change without exception.
+            $this->job->setStatus(\Omeka\Entity\Job::STATUS_ERROR);
             return;
         }
 

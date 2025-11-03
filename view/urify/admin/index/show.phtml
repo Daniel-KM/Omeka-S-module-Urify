@@ -28,13 +28,18 @@ if ($hasLog) {
 }
 
 $this->headLink()
+    ->appendStylesheet($assetUrl('css/common-dialog.css', 'Common'))
     ->appendStylesheet($assetUrl('css/urify.css', 'Urify'));
+$this->headScript()
+    ->appendFile($assetUrl('js/common-dialog.js', 'Common'), 'text/javascript', ['defer' => 'defer'])
+    ->appendFile($assetUrl('js/urify.js', 'Urify'), 'text/javascript', ['defer' => 'defer']);
 
 $this->htmlElement('body')->appendAttribute('class', 'urify show');
 
 $jobArgs = $job->args();
 $results = $jobArgs['results'] ?? [];
 $baseUrlItem = $url('admin/default', ['controller' => 'item', 'action' => 'browse']);
+$jobQuery = $jobArgs['query'] ?? [];
 
 $hasError = $job->status() === \Omeka\Entity\Job::STATUS_ERROR;
 ?>
@@ -65,16 +70,43 @@ $hasError = $job->status() === \Omeka\Entity\Job::STATUS_ERROR;
             '<a href="' . $job->adminUrl() . '">'
         ) ?>
     </p>
+    <?php if ($jobQuery): ?>
+    <p>
+        <?php // TODO Use the filter of the omeka input element Query. ?>
+        <?= sprintf($escape($translate('The job was run on resources matching this %1$squery%2$s.')), sprintf('<a href="%s">', $escapeAttr($url('admin/default', ['controller' => 'item'], ['query' => $jobQuery]))), '</a>') ?>
+        <?= sprintf($escape($translate('Warning: this query is not included in the links below, but is used when urifying values.'))) ?>
+    </p>
+    <?php endif; ?>
 </div>
 
 <?php if ($results): ?>
 
-<div class="block">
+<div class="block"
+    data-msg-apply="<?= $jobQuery
+        ? $escapeAttr(nl2br($translate(<<<'TXT'
+            Replace value: {value}
+            with label: {label}
+            and uri: {uri}
+            for the property: {property}
+            of queried resources?
+            Edit the label if wanted or remove it to keep the current one:
+            TXT)))
+        : $escapeAttr(nl2br($translate(<<<'TXT'
+            Replace value: {value}
+            with label: {label}
+            and uri: {uri}
+            for the property: {property}
+            of all resources?
+            Edit the label if wanted or remove it to keep the current one:
+            TXT))) ?>"
+    data-url-urify="<?= $escapeAttr($url('admin/urify/id', ['action' => 'apply', 'id' => $job->id()])) ?>"
+    data-job-id="<?= $job->id() ?>"
+    data-has-query="<?= (int) !empty($jobQuery) ?>">
 
     <?php foreach ($results as $propertyTerm => $result): ?>
 
     <dl>
-        <dt><?= sprintf($escape($translate('Property: %1$s : %2$s')), $translate($easyMeta->vocabularyLabel(strtok($propertyTerm, ':'))), $translate($easyMeta->propertyLabel($propertyTerm))) ?></dt>
+        <dt><?= sprintf($escape($translate('Property: %1$s%2$s : %3$s%4$s')), sprintf('<a href="%s">', $escapeAttr($url('admin/default', ['controller' => 'item', 'action' => 'browse'], ['query' => ['property[0][property]' => $propertyTerm, 'property[0][type]' => 'ex']]))), $translate($easyMeta->vocabularyLabel(strtok($propertyTerm, ':'))), $translate($easyMeta->propertyLabel($propertyTerm)), '</a>') ?></dt>
         <dd><?= sprintf($escape($translate('Number of values: %d.')), count($result)) ?></dd>
         <dd><?= sprintf($escape($translate('Number of uris: %d.')), array_sum(array_map(fn ($v) => count($v['uris']), $result))) ?></dd>
     </dl>
@@ -88,9 +120,9 @@ $hasError = $job->status() === \Omeka\Entity\Job::STATUS_ERROR;
         </thead>
         <tbody>
             <?php foreach ($result as $data): ?>
-            <tr>
+            <tr class="urify-value-uris">
                 <td>
-                    <div><?= $hyperlink($data['label'], $baseUrlItem . '?' . http_build_query(['property' => [['property' => $propertyTerm, 'type' => 'eq', 'text' => $data['label']]]], '', '&', PHP_QUERY_RFC3986)) ?></div>
+                    <div><?= $hyperlink($data['label'], $baseUrlItem . '?' . http_build_query(['property' => [['property' => $propertyTerm, 'type' => 'eq', 'text' => $data['label']]]], '', '&', PHP_QUERY_RFC3986), ['class' => 'value-to-urify']) ?></div>
                     <div><?= sprintf($escape($translate('First resources on a total of %d')), $data['count']) ?>
                         <ul class="list-resource-ids">
                             <?php foreach ($data['resources'] ?? [] as $resourceId): ?>
@@ -101,9 +133,12 @@ $hasError = $job->status() === \Omeka\Entity\Job::STATUS_ERROR;
                 </td>
                 <td>
                        <?php if (!empty($data['uris'])): ?>
-                    <ul>
+                    <ul class="list-uris">
                         <?php foreach ($data['uris'] as $uri => $label): ?>
-                        <li><?= $hyperlink($label ?: $uri, $uri) ?></li>
+                        <li class="uri-label">
+                            <button type="button" class="apply-uri-to-values" title="<?= $v = $escapeAttr($jobQuery ? $translate('Update queried resources with this uri') : $translate('Update all resources with this uri')) ?>"aria-label="<?= $v ?>"><span class="fas fa-check"></span></button>
+                            <span class="uri-label"><?= $hyperlink($label ?: $uri, $uri) ?></span>
+                        </li>
                         <?php endforeach; ?>
                     </ul>
                     <?php endif; ?>

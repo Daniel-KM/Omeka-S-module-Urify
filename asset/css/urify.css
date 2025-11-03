@@ -19,4 +19,30 @@
 	        margin-left: 1em;
 	    }
     }
+
+    .urify.show td:first-child,
+    .urify.show th:first-child {
+        width: 34%;
+    }
+
+    .urify.show ul.list-uris {
+        margin: 0;
+        padding-left: 0;
+        list-style: none;
+    }
+
+    /* TODO Remove for Common 3.4.74. */
+    .dialog-header,
+    .dialog-contents,
+    .dialog-heading,
+    .dialog-message,
+    .dialog-body,
+    .dialog-footer {
+        margin-top: 1em;
+    }
+    .dialog-footer {
+        display: flex;
+        justify-content: center;
+        gap: 1em;
+    }
 }
