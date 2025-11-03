@@ -61,6 +61,14 @@ class Module extends AbstractModule
             throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message);
         }
 
+        if (!class_exists('ValueSuggest\Module', false)) {
+            $message = new \Omeka\Stdlib\Message(
+                $translate('The module %1$s is required to use this module.'), // @translate
+                'Value Suggest'
+            );
+            throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message);
+        }
+
         $this->installDirs();
     }
 

@@ -14,6 +14,8 @@ $jobState = $plugins->has('jobState') ? $plugins->get('jobState') : null;
 $assetUrl = $plugins->get('assetUrl');
 $translate = $plugins->get('translate');
 $hyperlink = $plugins->get('hyperlink');
+$easyMeta = $plugins->get('easyMeta');
+$escapeAttr = $plugins->get('escapeHtmlAttr');
 
 $hasLog = isset($jobState);
 if ($hasLog) {
@@ -30,37 +32,38 @@ $this->headLink()
 
 $this->htmlElement('body')->appendAttribute('class', 'urify show');
 
-$baseUrl = $url('admin/default', ['controller' => 'item', 'action' => 'browse']);
+$jobArgs = $job->args();
+$results = $jobArgs['results'] ?? [];
+$baseUrlItem = $url('admin/default', ['controller' => 'item', 'action' => 'browse']);
 
 $hasError = $job->status() === \Omeka\Entity\Job::STATUS_ERROR;
 ?>
 
-<?= $this->pageTitle(sprintf($translate('Job #%d'), $job->id()), 1, $translate('Urify')) ?>
+<?= $this->pageTitle($jobArgs['label'] ?: sprintf($translate('Job #%d'), $job->id()), 1, $translate('Urify')) ?>
 
 <nav class="section-nav">
     <?= $this->navigation('Laminas\Navigation\Urify')->menu() ?>
 </nav>
 
 <div class="block">
-    <h2><?= $escape($job->args()['label'] ?: sprintf('Job #%d', $job->id())) ?></h2>
     <p><?= $job->started() ? $i18n->dateFormat($job->started(), 'medium', 'medium') : $translate('Not started') ?></p>
     <?php if ($v = ($jobState && $jobState($job))): ?>
     <?= $jobState($job, ['output' => 'html']) ?>
     <?php endif; ?>
-	<p>
-		<?= $v ? '' : sprintf('%s.', $translate($job->statusLabel())) ?>
-		<?php if ($spreadsheet = $job->args()['spreadsheet'] ?? null): ?>
-        <?= sprintf($translate('See %1$sspreadsheet%2$s.'), sprintf('<a href="%s">', $baseUrlFiles . '/urify/' . $spreadsheet), '</a>') ?>
-		<?php endif; ?>
-		<?= sprintf($hasError
-		    ? $translate('See errors in job %1$slogs%2$s and %3$sparams%2$s.')
-	        : $translate('See job %1$slogs%2$s and %3$sparams%2$s.'),
-		    class_exists('Log\Module', false)
+    <p>
+        <?= $v ? '' : sprintf('%s.', $translate($job->statusLabel())) ?>
+        <?php if ($spreadsheet = $jobArgs['spreadsheet'] ?? null): ?>
+        <?= sprintf($escape($translate('See %1$sspreadsheet%2$s.')), sprintf('<a href="%s">', $baseUrlFiles . '/urify/' . $spreadsheet), '</a>') ?>
+        <?php endif; ?>
+        <?= sprintf($hasError
+            ? $escape($translate('See errors in job %1$slogs%2$s and %3$sparams%2$s.'))
+            : $escape($translate('See job %1$slogs%2$s and %3$sparams%2$s.')),
+            class_exists('Log\Module', false)
                 ? sprintf('<a href="%1$s">', $url('admin/default', ['controller' => 'log'], ['query' => ['job_id' => $job->id()]]))
                 : sprintf('<a href="%1$s" target="_blank">', $url('admin/id', ['controller' => 'job', 'action' => 'log', 'id' => $job->id()])),
             '</a>',
-		    '<a href="' . $job->adminUrl() . '">'
-	    ) ?>
+            '<a href="' . $job->adminUrl() . '">'
+        ) ?>
     </p>
 </div>
 
@@ -68,44 +71,49 @@ $hasError = $job->status() === \Omeka\Entity\Job::STATUS_ERROR;
 
 <div class="block">
 
-    <table class="tablesaw batch-edit" data-tablesaw-mode="stack">
+    <?php foreach ($results as $propertyTerm => $result): ?>
+
+    <dl>
+        <dt><?= sprintf($escape($translate('Property: %1$s : %2$s')), $translate($easyMeta->vocabularyLabel(strtok($propertyTerm, ':'))), $translate($easyMeta->propertyLabel($propertyTerm))) ?></dt>
+        <dd><?= sprintf($escape($translate('Number of values: %d.')), count($result)) ?></dd>
+        <dd><?= sprintf($escape($translate('Number of uris: %d.')), array_sum(array_map(fn ($v) => count($v['uris']), $result))) ?></dd>
+    </dl>
+
+    <table class="tablesaw batch-edit" data-tablesaw-mode="stack" data-property-term="<?= $escapeAttr($propertyTerm) ?>">
         <thead>
             <tr>
-                <?php foreach (array_keys(reset($results)) as $name): ?>
-                <th><?= $escape($name) ?></th>
-                <?php endforeach; ?>
+                <th><?= $escape($translate('Value')) ?></th>
+                <th><?= $escape($translate('Uris')) ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($results as $result): ?>
+            <?php foreach ($result as $data): ?>
             <tr>
-                <?php $isFirst = true; ?>
-                <?php foreach ($result as $column): ?>
                 <td>
-                    <?php if ($isFirst): ?>
-                        <?php $isFirst = false; ?>
-                        <?php if (!is_array($column)): // Input simple reference. ?>
-                        <?= $escape($column) ?>
-                        <?php else: ?>
-                        <?= $escape(implode(' ; ', $column)) ?>
-                        <?php endif; ?>
-                    <?php elseif ($column): ?>
+                    <div><?= $hyperlink($data['label'], $baseUrlItem . '?' . http_build_query(['property' => [['property' => $propertyTerm, 'type' => 'eq', 'text' => $data['label']]]], '', '&', PHP_QUERY_RFC3986)) ?></div>
+                    <div><?= sprintf($escape($translate('First resources on a total of %d')), $data['count']) ?>
+                        <ul class="list-resource-ids">
+                            <?php foreach ($data['resources'] ?? [] as $resourceId): ?>
+                            <li><?= $hyperlink(sprintf($escape($translate('#%d')), $resourceId), $baseUrlItem . '/' . $resourceId) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                       <?php if (!empty($data['uris'])): ?>
                     <ul>
-                        <?php foreach ($column as $urlOrId => $label): ?>
-                        <li><?= is_numeric($urlOrId)
-                            ? $hyperlink($label ?: sprintf('#%d', $urlOrId), $baseUrl . '/' . $urlOrId)
-                           : $hyperlink($label, $urlOrId) ?></li>
+                        <?php foreach ($data['uris'] as $uri => $label): ?>
+                        <li><?= $hyperlink($label ?: $uri, $uri) ?></li>
                         <?php endforeach; ?>
                     </ul>
-                    <?php else: ?>
-                    <span class="no-results"></span>
                     <?php endif; ?>
                 </td>
-                <?php endforeach; ?>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <?php endforeach; ?>
 
     <?php // TODO Export. ?>
 </div>
@@ -114,7 +122,7 @@ $hasError = $job->status() === \Omeka\Entity\Job::STATUS_ERROR;
 
 <div class="block no-resources no-files">
     <p>
-        <?= $translate('No results.') ?>
+        <?= $escape($translate('No results.')) ?>
     </p>
 </div>
 

@@ -9,13 +9,13 @@ return [
         ],
     ],
     'form_elements' => [
-        'invokables' => [
-            Form\UrifyForm::class => Form\UrifyForm::class,
+        'factories' => [
+            Form\UrifyForm::class => Service\Form\UrifyFormFactory::class,
         ],
     ],
     'controllers' => [
-        'invokables' => [
-            'Urify\Controller\Admin\Index' => Controller\Admin\IndexController::class,
+        'factories' => [
+            'Urify\Controller\Admin\Index' => Service\Controller\IndexControllerFactory::class,
         ],
     ],
     // TODO Remove these routes and use main admin/default.
@@ -68,7 +68,7 @@ return [
     'navigation' => [
         'AdminModule' => [
             'urify' => [
-                'label' => 'Urify resources', // @translate
+                'label' => 'Urify values', // @translate
                 'route' => 'admin/urify/default',
                 'controller' => 'index',
                 'action' => 'add',
@@ -87,7 +87,7 @@ return [
         ],
         'Urify' => [
             [
-                'label' => 'Urify', // @translate
+                'label' => 'Prepare', // @translate
                 'route' => 'admin/urify/default',
                 'controller' => 'Index',
                 'action' => 'add',

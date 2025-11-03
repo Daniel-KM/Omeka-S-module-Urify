@@ -21,7 +21,11 @@ Installation
 
 See general end user documentation for [installing a module].
 
-This module requires the module [Common], that should be installed first.
+This module requires the modules [Common] and [Value Suggest], that should be
+installed first.
+
+The module uses an external library, so use the release zip to install it, or
+use and init the source.
 
 - From the zip
 
@@ -31,7 +35,11 @@ uncompress it in the `modules` directory.
 - From the source and for development
 
 If the module was installed from the source, rename the name of the folder of
-the module to `Urify`.
+the module to `Urify`, go to the root of the module, and run:
+
+```sh
+composer install --no-dev
+```
 
 Then install it like any other Omeka module and follow the config instructions.
 
@@ -48,6 +56,10 @@ TODO
 
 - [ ] Don't limit to IdRef, but to all ValueSuggest data.
 - [ ] Implement other modes of Bulk Edit: reset and re-fill labels and uris.
+- [ ] Include properties for querying.
+- [ ] Clean label (for example without birth date) or set a format to convert.
+- [ ] Implement an over-interface to manage urify + more infos.
+- [ ] Implement format of label, not always main title, but with meta mapper.
 
 
 Warning

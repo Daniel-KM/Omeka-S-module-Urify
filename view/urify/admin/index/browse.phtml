@@ -2,6 +2,7 @@
 /**
  * @var \Laminas\View\Renderer\PhpRenderer $this
  * @var \Omeka\Api\Representation\JobRepresentation[] $jobs
+ * @var \Omeka\DataType\Manager $dataTypeManager
  * @var string $baseUrlFiles
  */
 
@@ -13,6 +14,8 @@ $jobState = $plugins->has('jobState') ? $plugins->get('jobState') : null;
 $assetUrl = $plugins->get('assetUrl');
 $translate = $plugins->get('translate');
 $hyperlink = $plugins->get('hyperlink');
+$easyMeta = $plugins->get('easyMeta');
+$translatePlural = $plugins->get('translatePlural');
 
 $hasLog = isset($jobState);
 if ($hasLog) {
@@ -28,6 +31,13 @@ $this->headLink()
     ->appendStylesheet($assetUrl('css/urify.css', 'Urify'));
 
 $this->htmlElement('body')->appendAttribute('class', 'urify browse');
+
+$hasAdvancedSearch = class_exists('AdvancedSearch\Module', false);
+$mainCustomVocabs = $easyMeta->dataTypeMainCustomVocabs();
+
+$baseUrlProperty = $hasAdvancedSearch
+    ? null
+    : $url('admin/default', ['controller' => 'item', 'action' => 'browse'], ['query' => ['property[0][property]' => '{property}', 'property[0][type]' => 'ex']]);
 ?>
 
 <?= $this->pageTitle($translate('Browse'), 1, $translate('Urify')) ?>
@@ -45,9 +55,12 @@ $this->htmlElement('body')->appendAttribute('class', 'urify browse');
         <thead>
             <tr>
                 <th>
-                    <?= $translate('Name') ?>
+                    <?= $escape($translate('Name')) ?>
                 </th>
+                <th><?= $escape($translate('Data type')) ?></th>
+                <th><?= $escape($translate('Properties')) ?></th>
                 <th><?= $escape($translate('Date')) ?></th>
+                <th><?= $escape($translate('Query')) ?></th>
                 <th><?= $escape($translate('Status/Log/Params')) ?></th>
                 <th><?= $escape($translate('Spreadsheet')) ?></th>
             </tr>
@@ -56,13 +69,54 @@ $this->htmlElement('body')->appendAttribute('class', 'urify browse');
             <?php
             foreach ($jobs as $job):
                 $stateHtml = $jobState($job, ['output' => 'html']);
-                $spreadsheet = $job->args()['spreadsheet'] ?? null;
+                $jobArgs = $job->args();
+                $spreadsheet = $jobArgs['spreadsheet'] ?? null;
+                $properties = $jobArgs['properties'] ?? [];
+                $query = $jobArgs['query'] ?? [];
+                $dataType = $jobArgs['datatype'] ?? null;
+                if ($hasAdvancedSearch) {
+                    $dts = $jobArgs['datatypes'] ?? null;
+                    $dataTypes = [];
+                    if (in_array('literal', $dts)) {
+                        $dataTypes[] = 'literal';
+                    }
+                    if (in_array('uri', $dts)) {
+                        $dataTypes[] = 'uri';
+                    }
+                    if (in_array('specified', $dts)) {
+                        $dataTypes[] = $dataType;
+                    }
+                    if (in_array('custom_vocab_literal', $dts)) {
+                        $dataTypes  = array_merge($dataTypes, array_values(array_filter($mainCustomVocabs, fn ($v) => $v === 'literal')));
+                    }
+                    if (in_array('custom_vocab_uri', $dts)) {
+                        $dataTypes  = array_merge($dataTypes, array_values(array_filter($mainCustomVocabs, fn ($v) => $v === 'uri')));
+                    }
+                    $dataTypes  = array_unique($dataTypes);
+                    $urlProperty = $url('admin/default', ['controller' => 'item', 'action' => 'browse'], ['query' => ['filter' => ['field' => $properties, 'type' => 'dtp', 'val' => $dataTypes]]]);
+                } else {
+                    // TODO Improve standard search query without module Advanced Search. Most of the time, there is only one property.
+                    $urlProperty = strtr($baseUrlProperty, ['{property}' => reset($properties)]);
+                }
                 ?>
             <tr>
                 <td>
-                    <?= $hyperlink($job->args()['label'] ?: sprintf('Job #%d', $job->id()), $url('admin/urify/id', ['id' => $job->id(), 'action' => 'show'])) ?>
+                    <?= $hyperlink($jobArgs['label'] ?: sprintf('Job #%d', $job->id()), $url('admin/urify/id', ['id' => $job->id(), 'action' => 'show'])) ?>
                 </td>
-                <td><?= $job->started() ? $i18n->dateFormat($job->started(), 'medium', 'medium') : $translate('Not started') ?></td>
+                <td><?= $dataTypeManager->has($dataType) ? $escape($translate($dataTypeManager->get($dataType)->getLabel())) : $escape($dataType) ?></td>
+                <td>
+                    <ul class="property-counts">
+                        <?php foreach ($properties as $property): ?>
+                        <li><dl>
+                            <dt><span class="property"><?= $hyperlink(sprintf($translate('%1$s : %2$s'), $translate($easyMeta->vocabularyLabel(strtok($property, ':'))), $translate($easyMeta->propertyLabel($property))), $urlProperty) ?></span></dt>
+                            <dd><span class="counts count-values"><?= $escape(sprintf($translatePlural('%d value', '%d values', $v = count($jobArgs['results'][$property] ?? [])), $v)) ?></span></dd>
+                            <dd><span class="counts count-uris"><?= $escape(sprintf($translatePlural('%d uri', '%d uris', $v = array_sum(array_map(fn ($v) => count($v['uris']), $jobArgs['results'][$property] ?? []))), $v)) ?></span></dd>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </td>
+                <td><?= $job->started() ? $i18n->dateFormat($job->started(), 'medium', 'medium') : $escape($translate('Not started')) ?></td>
+                <td><?= $query ? $hyperlink($translate('Yes'), $url('admin/default', ['controller' => 'item'], ['query' => $query])) : '' ?></td>
                 <td>
                     <div class="log-job job-status" data-job-id="<?= $job->id() ?>">
                         <?php if ($stateHtml): ?>
@@ -77,7 +131,6 @@ $this->htmlElement('body')->appendAttribute('class', 'urify browse');
                                 ? $url('admin/default', ['controller' => 'log'], ['query' => ['job_id' => $job->id()]])
                                 : $url('admin/id', ['controller' => 'job', 'action' => 'log', 'id' => $job->id()])) ?>
                         </span>
-                        &nbsp;
                         <span class="log-job-param"><em><?= $hyperlink($translate('Parameters'), $url('admin/id', ['controller' => 'job', 'action' => 'show', 'id' => $job->id()])) ?></em></span>
                         <?php endif; ?>
                     </div>
@@ -95,7 +148,7 @@ $this->htmlElement('body')->appendAttribute('class', 'urify browse');
 
 <div class="block no-resources no-files">
     <p>
-        <?= $translate('No urification.') ?>
+        <?= $escape($translate('No urification.')) ?>
     </p>
 </div>
 

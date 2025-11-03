@@ -5,4 +5,18 @@
     #urify.empty+.no-resources::before {
         content: ""; /* fas fa-link */
     }
+
+    .urify.browse td:first-child,
+    .urify.browse th:first-child {
+        width: 25%;
+    }
+
+    .urify.browse ul.property-counts {
+        margin: 0;
+        padding-left: 0;
+        list-style: none;
+	    & dd {
+	        margin-left: 1em;
+	    }
+    }
 }
