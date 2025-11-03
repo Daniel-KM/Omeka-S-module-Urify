@@ -240,6 +240,7 @@ class UrifyValuesApply extends AbstractJob
 
         $propertyIdsByTerms = $this->easyMeta->propertyIds();
         $updateLabel = $this->arguments['label'] !== '';
+        $lowerValue = mb_convert_case($this->arguments['value'], MB_CASE_FOLD, 'UTF-8');
 
         $resourceIds = $this->api->search('items', $valueQuery, ['returnScalar' => 'id'])->getContent();
         $resourceIds = array_map('intval', $resourceIds);
@@ -277,7 +278,7 @@ class UrifyValuesApply extends AbstractJob
 
             $hasChange = false;
             foreach ($itemValues[$this->arguments['property']] as $key => $value) {
-                if (($value['@value'] ?? null) === $this->arguments['value']
+                if (mb_convert_case(strval($value['@value'] ?? ''), MB_CASE_FOLD, 'UTF-8') === $lowerValue
                     && in_array($value['type'], $this->arguments['data_types'])
                 ) {
                     $value['type'] = $this->arguments['datatype'];
