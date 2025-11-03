@@ -12,8 +12,13 @@ example [IdRef], in particular for authors and subjects.
 It does a search and list all the matching possibilities, allowing to replace an
 existing uri or to choose a new one for each literal value.
 
-The module [Bulk Edit] does the same automatically for some endpoints, but this
-module allows to check manually the matching results.
+The module [Bulk Edit] does the same automatically when there is only one
+response from the endpoints. This module allows to check manually the matching
+results.
+
+Here is a live example:
+
+![example of urify matching](data/images/urify_matching.png)
 
 
 Installation
