@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-03 00:00+0000\n"
+"POT-Creation-Date: 2025-12-10 12:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,3 +16,363 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: data/scripts/upgrade.php:39 Module.php:58
+#, php-format
+msgid "The module %1$s should be upgraded to version %2$s or later."
+msgstr ""
+
+#: src/Controller/Admin/IndexController.php:233
+msgid "Missing required parameters."
+msgstr ""
+
+#: src/Job/UrifyValues.php:467
+msgid "First item"
+msgstr ""
+
+#: src/Job/UrifyValues.php:468
+msgid "Original value"
+msgstr ""
+
+#: src/Job/UrifyValues.php:469
+msgid "Proposed label"
+msgstr ""
+
+#: src/Job/UrifyValues.php:470
+msgid "Proposed uri"
+msgstr ""
+
+#: view/urify/admin/index/add.phtml:18
+msgid "Prepare"
+msgstr ""
+
+#: view/urify/admin/index/add.phtml:18 view/urify/admin/index/browse.phtml:43
+#: view/urify/admin/index/show.phtml:47
+msgid "Urify"
+msgstr ""
+
+#: view/urify/admin/index/browse.phtml:60
+msgid "Data type"
+msgstr ""
+
+#: view/urify/admin/index/browse.phtml:64
+msgid "Status/Log/Params"
+msgstr ""
+
+#: view/urify/admin/index/browse.phtml:65
+msgid "Spreadsheet"
+msgstr ""
+
+#: view/urify/admin/index/browse.phtml:101
+#, php-format
+msgid "%1$s : %2$s"
+msgstr ""
+
+#: view/urify/admin/index/browse.phtml:108 view/urify/admin/index/show.phtml:54
+msgid "Not started"
+msgstr ""
+
+#: view/urify/admin/index/browse.phtml:114
+msgid "Logs"
+msgstr ""
+
+#: view/urify/admin/index/browse.phtml:117
+#: view/urify/admin/index/browse.phtml:124
+msgid "Parameters"
+msgstr ""
+
+#: view/urify/admin/index/browse.phtml:141
+msgid "No urification."
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:47
+#, php-format
+msgid "Job #%d"
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:61
+#, php-format
+msgid "See %1$sspreadsheet%2$s."
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:64
+#, php-format
+msgid "See errors in job %1$slogs%2$s and %3$sparams%2$s."
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:65
+#, php-format
+msgid "See job %1$slogs%2$s and %3$sparams%2$s."
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:76
+#, php-format
+msgid "The job was run on resources matching this %1$squery%2$s."
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:77
+msgid ""
+"Warning: this query is not included in the links below, but is used when "
+"urifying values."
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:85
+msgid ""
+"Replace value: {value}\n"
+"with label: {label}\n"
+"and uri: {uri}\n"
+"for the property: {property}\n"
+"of queried resources?\n"
+"Edit the label if wanted or remove it to keep the current one:"
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:93
+msgid ""
+"Replace value: {value}\n"
+"with label: {label}\n"
+"and uri: {uri}\n"
+"for the property: {property}\n"
+"of all resources?\n"
+"Edit the label if wanted or remove it to keep the current one:"
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:108
+#, php-format
+msgid "Property: %1$s%2$s : %3$s%4$s"
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:109
+#, php-format
+msgid "Number of values: %d."
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:110
+#, php-format
+msgid "Number of uris: %d."
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:117
+msgid "Uris"
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:125
+#, php-format
+msgid "First resources on a total of %d"
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:128
+#, php-format
+msgid "#%d"
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:138
+msgid "Update queried resources with this uri"
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:138
+msgid "Update all resources with this uri"
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:159
+msgid "No results."
+msgstr ""
+
+#: Module.php:66
+msgid "The module {module} is required to use this module."
+msgstr ""
+
+#: Module.php:84
+msgid "The directory \"{dir}\" is not writeable."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:109
+msgid "No value to replace provided."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:115
+msgid "No uri to use for replacement provided."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:120
+msgid "No label to use for replacement: the existing value will be kept."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:126
+msgid "No property provided."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:132 src/Job/UrifyValues.php:150
+msgid "No data type provided."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:138
+msgid "No value types provided."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:143
+msgid "The process will be done on resource matching the specified query."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:145
+msgid ""
+"No query provided: the process will be done on all resources with the "
+"specified property."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:153 src/Job/UrifyValues.php:203
+msgid "The module Value Suggest is required to get uris."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:175 src/Job/UrifyValues.php:225
+msgid "The data type {data_type} is not available."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:205
+msgid "The query returned no resources."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:251 src/Job/UrifyValuesApply.php:308
+msgid "Urification ended for {count} resources: {resource_ids}"
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:255 src/Job/UrifyValues.php:278
+msgid "The job was stopped."
+msgstr ""
+
+#: src/Job/UrifyValues.php:135
+msgid "No processes defined."
+msgstr ""
+
+#: src/Job/UrifyValues.php:144
+msgid "No properties provided."
+msgstr ""
+
+#: src/Job/UrifyValues.php:174
+msgid "No source data types provided."
+msgstr ""
+
+#: src/Job/UrifyValues.php:191 src/Job/UrifyValues.php:357
+msgid "The process to check uris is not yet implemented."
+msgstr ""
+
+#: src/Job/UrifyValues.php:195
+msgid "No source data types matching options."
+msgstr ""
+
+#: src/Job/UrifyValues.php:308
+msgid ""
+"No resources found for property {property} with the given query and data "
+"types."
+msgstr ""
+
+#: src/Job/UrifyValues.php:339
+msgid ""
+"No literal values found for property {property} and specified data types."
+msgstr ""
+
+#: src/Job/UrifyValues.php:346
+msgid "Processing {total} values for property {property}."
+msgstr ""
+
+#: src/Job/UrifyValues.php:386
+msgid ""
+"The provided label \"{label}\" is not trimmed. It is recommended to run the "
+"Easy Admin tasks to clean values."
+msgstr ""
+
+#: src/Job/UrifyValues.php:396
+msgid ""
+"Property {property}: The label is an empty string. Resources: {resource_ids}."
+msgstr ""
+
+#: src/Job/UrifyValues.php:438
+msgid "No results to export to spreadsheet."
+msgstr ""
+
+#: src/Job/UrifyValues.php:496
+msgid "Spreadsheet created: {url}"
+msgstr ""
+
+#: src/Job/UrifyValues.php:507
+msgid "Failed to create spreadsheet: {message}"
+msgstr ""
+
+#: src/Job/UrifyValues.php:527
+msgid "The directory \"{path}\" is not writeable."
+msgstr ""
+
+#: src/Job/UrifyValues.php:538
+msgid "The directory \"{path}\" is not writeable: {error}."
+msgstr ""
+
+#: src/Form/UrifyForm.php:88
+msgid "label"
+msgstr ""
+
+#: src/Form/UrifyForm.php:128
+msgid "Data type to urify"
+msgstr ""
+
+#: src/Form/UrifyForm.php:137
+msgid "Select a data type…"
+msgstr ""
+
+#: src/Form/UrifyForm.php:145
+msgid "For properties"
+msgstr ""
+
+#: src/Form/UrifyForm.php:155
+msgid "Select properties…"
+msgstr ""
+
+#: src/Form/UrifyForm.php:163
+msgid "Value types to process"
+msgstr ""
+
+#: src/Form/UrifyForm.php:167
+msgid "Literal"
+msgstr ""
+
+#: src/Form/UrifyForm.php:169
+msgid "Custom vocabs (literal)"
+msgstr ""
+
+#: src/Form/UrifyForm.php:187
+msgid "Language code to improve request and response for some endpoints"
+msgstr ""
+
+#: src/Form/UrifyForm.php:198
+msgid "Query to filter resources to process"
+msgstr ""
+
+#: src/Controller/Admin/IndexController.php:62
+msgid "No properties defined."
+msgstr ""
+
+#: src/Controller/Admin/IndexController.php:68
+msgid "No process defined."
+msgstr ""
+
+#: src/Controller/Admin/IndexController.php:77
+msgid "No value types defined."
+msgstr ""
+
+#: src/Controller/Admin/IndexController.php:83
+msgid "No destination data type defined."
+msgstr ""
+
+#: src/Controller/Admin/IndexController.php:127
+msgid ""
+"Processing search of {link_result}values to urify{link_end} in background "
+"(job {link_job}#{job_id}{link_end}, {link_log}logs{link_end})."
+msgstr ""
+
+#: src/Controller/Admin/IndexController.php:264
+msgid ""
+"Processing {link_result}urification{link_end} of values in background (job "
+"{link_job}#{job_id}{link_end}, {link_log}logs{link_end})."
+msgstr ""
+
+#: config/module.config.php:71
+msgid "Urify values"
+msgstr ""
