@@ -246,6 +246,8 @@ class UrifyValues extends AbstractJob
         if ($modeCheck) {
             $this->processCheckUri();
         }
+
+        $this->prepareSpreadsheet();
     }
 
     /**
@@ -373,7 +375,7 @@ class UrifyValues extends AbstractJob
             )
             ->groupBy('value.value')
             ->orderBy('value.value', 'ASC');
-            $values = $qb->execute()->fetchAllKeyValue();
+        $values = $qb->execute()->fetchAllKeyValue();
 
         $results = [];
         foreach ($values as $label => $resourceIds) {
@@ -386,7 +388,7 @@ class UrifyValues extends AbstractJob
                 );
             }
 
-            $resourceIds = array_unique(explode(',', $resourceIds));
+            $resourceIds = array_unique(array_map('intval', explode(',', $resourceIds)));
 
             if (!strlen($label)) {
                 // Very rare case on bad database anyway.
@@ -422,5 +424,123 @@ class UrifyValues extends AbstractJob
         $this->job->setArgs($args);
 
         return $results;
+   }
+
+   /**
+    * Store the results of the job into a spreadsheet.
+    *
+    * The file is stored in files/result/urify-{date}-{time}-{jobid}.ods
+    */
+   protected function prepareSpreadsheet(): bool
+   {
+       $jobArgs = $this->job->getArgs();
+       if (empty($jobArgs['results'])) {
+           $this->logger->warn('No results to export to spreadsheet.'); // @translate
+           return false;
+       }
+
+       // Create the spreadsheet directory if it doesn't exist
+       $services = $this->getServiceLocator();
+       $config = $services->get('Config');
+       $basePath = $config['file_store']['local']['base_path'] ?: (OMEKA_PATH . '/files');
+       if (!$this->checkDestinationDir($basePath . '/result/urify')) {
+           return false;
+       }
+
+       $urlHelper = $services->get('ViewHelperManager')->get('url');
+       $tempDir = $config['temp_dir'] ?: sys_get_temp_dir();
+       $baseUrl = $config['file_store']['local']['base_uri'] ?: $services->get('Router')->getBaseUrl() . '/files';
+       $baseUrlItem = rtrim($urlHelper->__invoke('admin/id', ['controller' => 'item', 'id' => '00'], ['force_canonical' => true]), '0');
+
+       $filename = sprintf('urify-%s-%s-%d.ods', date('Ymd'), date('His'), $this->job->getId());
+       $filepath = $basePath . '/result/urify/' . $filename;
+
+       try {
+           $writer = WriterEntityFactory::createODSWriter();
+           $writer
+               ->setTempFolder($tempDir)
+               ->openToFile($filepath);
+
+           // Prepare headers.
+           $headers = [
+               $this->translator->translate('Property'), // @translate
+               $this->translator->translate('First item'), // @translate
+               $this->translator->translate('Original value'), // @translate
+               $this->translator->translate('Proposed label'), // @translate
+               $this->translator->translate('Proposed uri'), // @translate
+           ];
+           $writer->addRow(WriterEntityFactory::createRowFromArray($headers));
+
+           // Write data rows.
+           foreach ($jobArgs['results'] as $property => $resultForProperty) foreach ($resultForProperty as $result) {
+               $rowData = [];
+               $rowData[] = $property;
+               $rowData[] = empty($result['resources']) ? '' : $baseUrlItem . reset($result['resources']);
+               $rowData[] = $result['label'] ?? '';
+               $baseRowData = $rowData;
+               if (empty($result['uris'])) {
+                   $writer->addRow(WriterEntityFactory::createRowFromArray($rowData));
+                   continue;
+               }
+               foreach ($result['uris'] as $uri => $label) {
+                   $rowData = $baseRowData;
+                   $rowData[] = $label;
+                   $rowData[] = $uri;
+                   $writer->addRow(WriterEntityFactory::createRowFromArray($rowData));
+               }
+           }
+
+           $writer->close();
+
+           $this->logger->notice(
+               'Spreadsheet created: {url}', // @translate
+               ['url' => $baseUrl . '/result/urify/' . $filename]
+           );
+
+           // Store filename in job args
+           $jobArgs['spreadsheet'] = $filename;
+           $this->job->setArgs($jobArgs);
+           $this->entityManager->persist($this->job);
+
+       } catch (\Exception $e) {
+           $this->logger->err(
+               'Failed to create spreadsheet: {message}', // @translate
+               ['message' => $e->getMessage()]
+           );
+           return false;
+       }
+
+       return true;
+   }
+
+   /**
+    * Check or create the destination folder.
+    *
+    * @param string $dirPath Absolute path.
+    * @return string|null
+    */
+   protected function checkDestinationDir($dirPath): ?string
+   {
+       if (file_exists($dirPath)) {
+           if (!is_dir($dirPath) || !is_readable($dirPath) || !is_writeable($dirPath)) {
+               $this->logger->err(
+                   'The directory "{path}" is not writeable.', // @translate
+                   ['path' => $dirPath]
+               );
+               return null;
+           }
+           return $dirPath;
+       }
+
+       $result = @mkdir($dirPath, 0775, true);
+       if (!$result) {
+           $this->logger->err(
+               'The directory "{path}" is not writeable: {error}.', // @translate
+               ['path' => $dirPath, 'error' => error_get_last()['message']]
+           );
+           return null;
+       }
+
+       return $dirPath;
    }
 }

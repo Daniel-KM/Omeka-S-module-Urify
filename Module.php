@@ -79,7 +79,7 @@ class Module extends AbstractModule
         $basePath = $config['file_store']['local']['base_path'] ?: (OMEKA_PATH . '/files');
         $translator = $services->get('MvcTranslator');
 
-        if (!$this->checkDestinationDir($basePath . '/urify')) {
+        if (!$this->checkDestinationDir($basePath . '/result/urify')) {
             $message = new \Common\Stdlib\PsrMessage(
                 'The directory "{dir}" is not writeable.', // @translate
                 ['dir' => $basePath]

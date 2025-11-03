@@ -58,7 +58,7 @@ $hasError = $job->status() === \Omeka\Entity\Job::STATUS_ERROR;
     <p>
         <?= $v ? '' : sprintf('%s.', $translate($job->statusLabel())) ?>
         <?php if ($spreadsheet = $jobArgs['spreadsheet'] ?? null): ?>
-        <?= sprintf($escape($translate('See %1$sspreadsheet%2$s.')), sprintf('<a href="%s">', $baseUrlFiles . '/urify/' . $spreadsheet), '</a>') ?>
+        <?= sprintf($escape($translate('See %1$sspreadsheet%2$s.')), sprintf('<a href="%s">', $baseUrlFiles . '/result/urify/' . $spreadsheet), '</a>') ?>
         <?php endif; ?>
         <?= sprintf($hasError
             ? $escape($translate('See errors in job %1$slogs%2$s and %3$sparams%2$s.'))
