@@ -43,7 +43,9 @@ return [
                                     'constraints' => [
                                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                     ],
-                                    'default' => 'browse',
+                                    'defaults' => [
+                                        'action' => 'browse',
+                                    ],
                                 ],
                             ],
                             'id' => [
@@ -71,7 +73,7 @@ return [
                 'label' => 'Urify values', // @translate
                 'route' => 'admin/urify/default',
                 'controller' => 'index',
-                'action' => 'add',
+                'action' => 'browse',
                 'class' => 'o-icon- fa-link',
                 'pages' => [
                     [

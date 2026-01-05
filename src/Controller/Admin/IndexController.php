@@ -2,7 +2,6 @@
 
 namespace Urify\Controller\Admin;
 
-use Common\Mvc\Controller\Plugin\JSend;
 use Common\Stdlib\PsrMessage;
 use Laminas\Http\Response as HttpResponse;
 use Laminas\Mvc\Controller\AbstractActionController;

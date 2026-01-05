@@ -50,8 +50,14 @@ class Module extends AbstractModule
 
     protected function preInstall(): void
     {
+        /**
+         * @var \Laminas\Mvc\I18n\Translator $translator
+         * @var \Omeka\Mvc\Controller\Plugin\Messenger $messenger
+         */
         $services = $this->getServiceLocator();
+        $plugins = $services->get('ControllerPluginManager');
         $translator = $services->get('MvcTranslator');
+        $messenger = $plugins->get('messenger');
 
         if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActiveVersion('Common', '3.4.76')) {
             $message = new \Omeka\Stdlib\Message(
@@ -67,6 +73,13 @@ class Module extends AbstractModule
                 ['module' => 'Value Suggest']
             );
             throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message->setTranslator($translator));
+        }
+
+        if (!class_exists('Mapper\Module', false)) {
+            $message = new \Common\Stdlib\PsrMessage(
+                'The module Mapper is needed to process multiple updates of values in resources. You still can update values one-by-one, that is the most common use case.' // @translate
+            );
+            $messenger->addNotice((string) $message->setTranslator($translator));
         }
 
         $this->installDirs();

@@ -23,6 +23,8 @@ use Omeka\Form\Element as OmekaElement;
 
     public function init(): void
     {
+        // TODO Another mode can be added: use existing uri to load data and check/update values.
+
         $hasMapper = class_exists('Mapper\Module', false);
 
         // All datatypes are included for uri, not to get label.
@@ -54,7 +56,7 @@ use Omeka\Form\Element as OmekaElement;
         }
         */
 
-        // TODO Get the right name of domain (first part before ":" in the label.
+        // TODO Get the right name of domain (first part before ":" in the label).
         $datatypesVSGrouped = [];
         foreach ($this->dataTypesLabels as $datatype => $label) {
             if (substr($datatype, 0, 13) === 'valuesuggest:'
