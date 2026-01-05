@@ -48,6 +48,15 @@ composer install --no-dev
 
 Then install it like any other Omeka module and follow the config instructions.
 
+- For test
+
+The module includes a comprehensive test suite with unit and functional tests.
+Run them from the root of Omeka:
+
+```sh
+vendor/bin/phpunit -c modules/Urify/phpunit.xml --testdox
+```
+
 
 Usage
 -----
@@ -59,12 +68,12 @@ the results.
 TODO
 ----
 
-- [ ] Don't limit to IdRef, but to all ValueSuggest data.
-- [ ] Implement other modes of Bulk Edit: reset and re-fill labels and uris.
+- [x] Don't limit to IdRef, but to all ValueSuggest data.
+- [x] Implement other modes of Bulk Edit: reset and re-fill labels and uris.
 - [ ] Include properties for querying.
-- [ ] Clean label (for example without birth date) or set a format to convert.
+- [x] Clean label (for example without birth date) or set a format to convert.
 - [ ] Implement an over-interface to manage urify + more infos.
-- [ ] Implement format of label, not always main title, but with meta mapper.
+- [x] Implement format of label, not always main title, but with meta mapper.
 
 
 Warning
@@ -122,13 +131,15 @@ Copyright
 
 - Copyright Daniel Berthereau, 2025 (see [Daniel-KM] on GitLab)
 
-This module was designed for the [digital library Manioc] of the [Université des Antilles et de la Guyane].
+This module was designed for the [digital library Manioc] of the [Université des Antilles],
+(subvention Agence bibliographique de l’enseignement supérieur [Abes]).
 
 
 [Urify]: https://gitlab.com/Daniel-KM/Omeka-S-module-Urify
 [Omeka S]: https://omeka.org/s
 [IdRef]: https://www.idref.fr
 [Value Suggest]: https://omeka.org/s/modules/ValueSuggest
+[Bulk Edit]: https://gitlab.com/Daniel-KM/Omeka-S-module-BulkEdit
 [installing a module]: https://omeka.org/s/docs/user-manual/modules/
 [Urify.zip]: https://github.com/Daniel-KM/Omeka-S-module-Urify/releases
 [module issues]: https://gitlab.com/Daniel-KM/Omeka-S-module-Urify/issues
@@ -138,6 +149,7 @@ This module was designed for the [digital library Manioc] of the [Université de
 [FSF]: https://www.fsf.org
 [OSI]: http://opensource.org
 [digital library Manioc]: http://www.manioc.org
-[Université des Antilles et de la Guyane]: http://www.univ-ag.fr
+[Université des Antilles]: http://www.univ-antilles.fr
+[Abes]: https://abes.fr
 [GitLab]: https://gitlab.com/Daniel-KM
 [Daniel-KM]: https://gitlab.com/Daniel-KM "Daniel Berthereau"
