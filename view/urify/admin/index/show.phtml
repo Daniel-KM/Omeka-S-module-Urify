@@ -4,6 +4,10 @@
  * @var \Omeka\Api\Representation\JobRepresentation $job
  * @var array $results
  * @var string $baseUrlFiles
+ * @var \Urify\Form\UrifyMapperForm|null $form
+ * @var bool $hasMapper
+ * @var string|null $updateMode
+ * @var string|null $updateMapper
  */
 
 $plugins = $this->getHelperPluginManager();
@@ -99,9 +103,28 @@ $hasError = $job->status() === \Omeka\Entity\Job::STATUS_ERROR;
             of all resources?
             Edit the label if wanted or remove it to keep the current one:
             TXT))) ?>"
+    data-msg-confirm-batch="<?= $jobQuery
+        ? $escapeAttr(nl2br($translate(<<<'TXT'
+            Apply the mapper:
+            {mapper}
+            to queryied resources with values fetched from uri:
+            {uri}
+            TXT)))
+        : $escapeAttr(nl2br($translate(<<<'TXT'
+            Apply the mapper:
+            {mapper}
+            to all resources with values fetched from uri:
+            {uri}
+            TXT))) ?>"
     data-url-urify="<?= $escapeAttr($url('admin/urify/id', ['action' => 'apply', 'id' => $job->id()])) ?>"
     data-job-id="<?= $job->id() ?>"
     data-has-query="<?= (int) !empty($jobQuery) ?>">
+
+    <?php if ($form): ?>
+    <div class="mapper-form">
+       <?= $this->form($form) ?>
+    </div>
+    <?php endif; ?>
 
     <?php foreach ($results as $propertyTerm => $result): ?>
 

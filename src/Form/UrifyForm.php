@@ -23,6 +23,8 @@ use Omeka\Form\Element as OmekaElement;
 
     public function init(): void
     {
+        $hasMapper = class_exists('Mapper\Module', false);
+
         // All datatypes are included for uri, not to get label.
         // Uri is not selected on load, but all datatypes are included anyway
         // until mode selection.
@@ -97,6 +99,7 @@ use Omeka\Form\Element as OmekaElement;
                     'label' => 'Processes', // @translate
                     'value_options' => [
                         'miss' => 'Get uris for missing literal values', // @translate
+                        'replace' => 'Replace all values according to mapper', // @translate
                         // TODO Check existing uris.
                         // 'check' => 'Check existing uris when a label exists', // @translate
                         // Via BulkEdit for now.
@@ -125,7 +128,7 @@ use Omeka\Form\Element as OmekaElement;
                 'name' => 'datatype',
                 'type' => CommonElement\OptionalSelect::class,
                 'options' => [
-                    'label' => 'Data type to urify', // @translate
+                    'label' => 'Source of data for urification', // @translate
                     'empty_option' => '',
                     'value_options' => $datatypesVSGrouped,
                 ],
@@ -134,7 +137,7 @@ use Omeka\Form\Element as OmekaElement;
                     'class' => 'chosen-select',
                     'required' => true,
                     'multiple' => false,
-                    'data-placeholder' => 'Select a data type…', // @translate
+                    'data-placeholder' => 'Select a source…', // @translate
                 ],
             ])
 
@@ -142,7 +145,9 @@ use Omeka\Form\Element as OmekaElement;
                 'name' => 'properties',
                 'type' => CommonElement\OptionalPropertySelect::class,
                 'options' => [
-                    'label' => 'For properties', // @translate
+                    'label' => $hasMapper
+                        ? 'Properties to search (mapper) and to urify (single mode)' // @translate
+                        : 'Properties to search and ti urify', // @translate
                     'term_as_value' => true,
                     'used_terms' => true,
                     'empty_option' => '',

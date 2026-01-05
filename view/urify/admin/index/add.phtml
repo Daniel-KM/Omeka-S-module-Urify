@@ -25,6 +25,12 @@ $this->htmlElement('body')->appendAttribute('class', 'urify urify-index');
     <?= $this->navigation('Laminas\Navigation\Urify')->menu() ?>
 </nav>
 
+<?php if (class_exists('Mapper\Module', false)):?>
+<div class="block">
+    <p><?= $escape($translate('The mode of update (single or multiple) can be set in the page of results.')) ?></p>
+</div>
+<?php endif; ?>
+
 <div class="block">
     <?= $this->form($form) ?>
 </div>

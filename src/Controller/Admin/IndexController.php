@@ -185,12 +185,30 @@ class IndexController extends AbstractActionController
         $config = $services->get('Config');
         $baseUrlFiles = $config['file_store']['local']['base_uri'] ?: $services->get('Router')->getBaseUrl() . '/files';
 
+        $hasMapper = class_exists('Mapper\Module', false);
+        if ($hasMapper) {
+            $updateMode = $this->settings()->get('urify_update_mode', 'single');
+            $updateMapper = $this->settings()->get('urify_update_mapper', '');
+            $form = $this->getForm(\Urify\Form\UrifyMapperForm::class);
+            $form->setData([
+                'update_mode' => $updateMode,
+                'update_mapper' => $updateMapper,
+            ]);
+        } else {
+            $updateMode = null;
+            $updateMapper = null;
+            $form = null;
+        }
+
         $results = $job->args()['results'] ?? [];
         return new ViewModel([
             'job' => $job,
             'results' => $results,
             'baseUrlFiles' => $baseUrlFiles,
-            'dataTypeManager' => $this->dataTypeManager,
+            'form' => $form,
+            'hasMapper' => $hasMapper,
+            'updateMode' => $updateMode,
+            'updateMapper' => $updateMapper,
         ]);
     }
 
@@ -198,9 +216,9 @@ class IndexController extends AbstractActionController
     public function applyAction()
     {
         if (!$this->getRequest()->isPost()) {
-            return $this->jSend(JSend::FAIL, [
-                'message' => $this->translate('Not found'), // @translate
-            ], null, HttpResponse::STATUS_CODE_404);
+            return $this->jSend()->fail(null, $this->translate(
+                'Not found', // @translate
+            ), HttpResponse::STATUS_CODE_404);
         }
 
         $id = $this->params('id');
@@ -208,14 +226,15 @@ class IndexController extends AbstractActionController
             /** @var \Omeka\Api\Representation\JobRepresentation $job */
             $job = $this->api()->read('jobs', ['id' => $id, 'class' => UrifyValues::class])->getContent();
         } catch (\Exception $e) {
-            return $this->jSend(JSend::FAIL, [
-                'message' => $this->translate('Not found'), // @translate
-            ], null, HttpResponse::STATUS_CODE_404);
+            return $this->jSend()->fail(null, $this->translate(
+                'Not found', // @translate
+            ), HttpResponse::STATUS_CODE_404);
         }
 
         $jobArgs = $job->args();
 
         $params = $this->params()->fromPost();
+
         $property = $params['property'] ?? null;
         $property = $this->easyMeta()->propertyTerm($property);
         $value = trim((string) ($params['value'] ?? ''));
@@ -229,10 +248,28 @@ class IndexController extends AbstractActionController
             || !$dataType
             || !$this->dataTypeManager->has($dataType)
         ) {
-            return $this->jSend(JSend::FAIL, [
-                'message' => $this->translate('Missing required parameters.'), // @translate
-            ], null, HttpResponse::STATUS_CODE_404);
+            return $this->jSend()->fail(null, $this->translate(
+                'Missing required parameters.' // @translate
+            ), HttpResponse::STATUS_CODE_404);
         }
+
+        $hasMapper = class_exists('Mapper\Module', false);
+
+        if ($hasMapper) {
+            $updateMode = ($params['update_mode'] ?? null) === 'multiple' ? 'multiple' : 'single';
+            $updateMapper = empty($params['update_mapper']) ? null : $params['update_mapper'];
+            if ($updateMode === 'multiple' && !$updateMapper) {
+                return $this->jSend()->fail(null, $this->translate(
+                    'A mapper is required when using mode "multiple".' // @translate
+                ));
+            }
+        } else {
+            $updateMode = 'single';
+            $updateMapper = null;
+        }
+
+        $this->settings()->set('urify_update_mode', $updateMode);
+        $this->settings()->set('urify_update_mapper', $updateMapper);
 
         // Api batchUpdate cannot be used, because it does not support to update
         // a single property value.
@@ -251,6 +288,8 @@ class IndexController extends AbstractActionController
             'datatype' => $dataType,
             'value_types' => $jobArgs['value_types'] ?? [],
             'query' => $query,
+            'updateMode' => $updateMode,
+            'updateMapper' => $updateMapper,
         ];
 
         /** @var \Omeka\Mvc\Controller\Plugin\JobDispatcher $dispatcher */
@@ -263,7 +302,7 @@ class IndexController extends AbstractActionController
         $message = new PsrMessage(
             'Processing {link_result}urification{link_end} of values in background (job {link_job}#{job_id}{link_end}, {link_log}logs{link_end}).', // @translate
             [
-                'link_result' => sprintf('<a href="%s">', $urlPlugin->fromRoute('admin/urify/id', ['id' => $job->getId()])),
+                'link_result' => sprintf('<a href="%s">', $urlPlugin->fromRoute('admin/urify/id', ['id' => $id])),
                 'link_job' => sprintf(
                     '<a href="%s">',
                     htmlspecialchars($urlPlugin->fromRoute('admin/id', ['controller' => 'job', 'id' => $job->getId()]))
@@ -277,6 +316,6 @@ class IndexController extends AbstractActionController
         );
         $message->setEscapeHtml(false);
 
-        return $this->jSend(JSend::SUCCESS, ['args' => $args], $message->setTranslator($this->translator()));
+        return $this->jSend()->success(['args' => $args],$message);
     }
 }

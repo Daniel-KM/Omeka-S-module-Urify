@@ -61,6 +61,11 @@ class UrifyValuesApply extends AbstractJob
     protected $translator;
 
     /**
+     * @var \Mapper\Stdlib\Mapper|null
+     */
+    protected $mapper;
+
+    /**
      * @var int
      */
     protected $maxResults = 100;
@@ -98,6 +103,8 @@ class UrifyValuesApply extends AbstractJob
             'datatype' => null,
             'data_types' => [],
             'query' => [],
+            'updateMode' => 'single',
+            'updateMapper' => null,
         ];
 
         // The status of error should be set just before return, else it can be

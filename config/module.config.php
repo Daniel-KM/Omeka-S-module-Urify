@@ -123,5 +123,9 @@ return [
         ],
     ],
     'urify' => [
+        'settings' => [
+            'urify_update_mode' => '',
+            'urify_update_mapper' => '',
+        ],
     ],
 ];
