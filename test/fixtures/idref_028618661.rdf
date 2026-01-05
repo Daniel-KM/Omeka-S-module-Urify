@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:bibo="http://purl.org/ontology/bibo/"
+          xmlns:bio="http://purl.org/vocab/bio/0.1/"
+          xmlns:bnf-onto="http://data.bnf.fr/ontology/bnf-onto/"
+          xmlns:dbpedia-owl="http://dbpedia.org/ontology/"
+          xmlns:dbpprop="http://dbpedia.org/property/"
+          xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:dcterms="http://purl.org/dc/terms/"
+          xmlns:fb="http://rdf.freebase.com/ns/"
+          xmlns:foaf="http://xmlns.com/foaf/0.1/"
+          xmlns:frbr="http://purl.org/vocab/frbr/core#"
+          xmlns:hub="http://hub.abes.fr/namespace/"
+          xmlns:isni="http://isni.org/ontology#"
+          xmlns:marcrel="http://id.loc.gov/vocabulary/relators/"
+          xmlns:org="http://www.w3.org/ns/org#"
+          xmlns:owl="http://www.w3.org/2002/07/owl#"
+          xmlns:rdau="http://rdaregistry.info/Elements/u/"
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+          xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+          xmlns:schema="http://schema.org/"
+          xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+          xmlns:sudoc="http://www.idref.fr/ns/"
+          xmlns:vivo="http://vivoweb.org/ontology/core#"><!--
+            Data provider : ABES
+            Stable URL
+            RDF modelization to be enriched and amended
+            Contact : idref at abes dot org
+        -->
+   <bibo:Document rdf:about="http://www.idref.fr/028618661">
+      <foaf:primaryTopic rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:identifier>028618661</dcterms:identifier>
+      <dcterms:creator rdf:resource="http://www.idref.fr/033702462/id"/>
+      <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1984-04-20</dcterms:created>
+      <dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-05-07T18:07:54</dcterms:modified>
+      <dcterms:replaces rdf:resource="http://www.idref.fr/02771375X"/>
+      <dcterms:replaces rdf:resource="http://www.idref.fr/09435894X"/>
+      <skos:editorialNote>Écrits politiques / Emmanuel-Joseph Sieyes ; choix et présentation, Roberto Zapperi, 1985</skos:editorialNote>
+      <skos:editorialNote>240 dans un fauteuil : la saga des présidents de l'Assemblée / Philippe Séguin, 1995</skos:editorialNote>
+   </bibo:Document>
+   <foaf:Person rdf:about="http://www.idref.fr/028618661/id">
+      <bnf-onto:FRBNF rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12041767</bnf-onto:FRBNF>
+      <!--ISNI-->
+      <owl:sameAs rdf:resource="http://isni.org/isni/0000000110275815"/>
+      <isni:identifierValid>0000000110275815</isni:identifierValid>
+      <!--BNF-->
+      <owl:sameAs rdf:resource="http://data.bnf.fr/ark:/12148/cb12041767q#foaf:Person"/>
+      <!--VIAF-->
+      <owl:sameAs rdf:resource="http://viaf.org/viaf/59101071"/>
+      <!--WIKIPEDIA-->
+      <owl:sameAs rdf:resource="https://fr.wikipedia.org/wiki/Emmanuel-Joseph_Sieyès"/>
+      <!--PERSEE-->
+      <owl:sameAs rdf:resource="https://www.persee.fr/authority/417708"/>
+      <foaf:gender>male</foaf:gender>
+      <skos:prefLabel>Sieyès, Emmanuel-Joseph (1748-1836)</skos:prefLabel>
+      <skos:altLabel>Sieyès, abbé</skos:altLabel>
+      <foaf:familyName>Sieyès</foaf:familyName>
+      <foaf:givenName>Emmanuel-Joseph</foaf:givenName>
+      <foaf:name>Emmanuel-Joseph Sieyès</foaf:name>
+      <bio:event>
+         <bio:Birth rdf:about="http://www.idref.fr/028618661/birth">
+            <bio:date rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1748-05-03</bio:date>
+         </bio:Birth>
+      </bio:event>
+      <bio:event>
+         <bio:Death rdf:about="http://www.idref.fr/028618661/death">
+            <bio:date rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1836-06-20</bio:date>
+         </bio:Death>
+      </bio:event>
+      <dbpedia-owl:citizenship rdf:resource="http://sws.geonames.org/3017382/"/>
+      <dcterms:language rdf:resource="http://lexvo.org/id/iso639-3/fra"/>
+      <!--skos:note-->
+      <skos:note>Vicaire général de Chartres. Théoricien révolutionnaire et homme politique sous la Révolution et l'Empire</skos:note>
+   </foaf:Person>
+   <bibo:Document rdf:about="https://www.sudoc.fr/138607958/id">
+      <dcterms:bibliographicCitation>Loi additionnelle à celle du 17 messidor an VII qui règle l'ordre de radiation des individus inscrits sur la liste des émigres  : du 9 thermidor an VII de la République française, une et indivisible / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/138278830/id">
+      <dcterms:bibliographicCitation>Loi qui régle l'ordre de radiation des individus inscrits sur la liste des émigrés  : du 17 messidor an VII de la République française, une et indivisible / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/138700400/id">
+      <dcterms:bibliographicCitation>Loi qui détermine le mode de paiement des créanciers des successions échues à la République, comme représentant les émigrés, depuis le 9 floréal an III  : du 16 thermidor an VII de la République française, une et indivisible / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/138421455/id">
+      <dcterms:bibliographicCitation>Lettre à M. l'abbé Sieyes sur son opinion relative au rachat des dîmes  / par M. D ..., député à l'Assemblée nationale. / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/13860794X/id">
+      <dcterms:bibliographicCitation>Arrêté du Directoire exécutif relatif aux entrepreneurs, directeurs, auteurs et rédacteurs de journaux, frappés de la déportation par la loi du 22 fructidor  : du 16 fructidor an VII de la République française, une et indivisible / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/138608024/id">
+      <dcterms:bibliographicCitation>Loi qui rapporte celle du 9 fructidor an VI contenant prorogation de l'article XXXV de la loi du 19 fructidor an V, relatif à la police des journaux  : du 14 thermidor an VII de la République française, une et indivisible / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/138699186/id">
+      <dcterms:bibliographicCitation>Loi relative à la disposition des successions échues aux familles d'émigrés  : du 8 messidor an VII de la République française, une et indivisible / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/266170900/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>France et Prusse  : la mission de Sieyès à Berlin  / A.-H. Neton / [Paris] : [Bureaux de la Nouvelle Revue] , [1900]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/19622697X/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>De la soutane au bonnet phrygien et à l'habit de cour  : Sieyès, Fouché, Talleyrand  / Henry Noëll / Paris : La Nouvelle édition , 1947, cop. 1947</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/048312770/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Des manuscrits de Sieyès  [Tome I], 1773-1799  / sous la direction de Christine Fauré  ; avec la collaboration de Jacques Guilhaumou et Jacques Valier / Paris : H. Champion , 1999</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/049269712/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès (1748-1836)  : d'après des documents inédits  / Albéric Neton / Paris : Perrin , 1900</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/018329136/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Théorie constitutionnelle de Sieyès  : constitution de l'an VIII  : extraits des mémoires inédits  / de M. Boulay de la Meurthe / Paris : Imprimé chez P. Renouard , 1836</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/084682183/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Oeuvres de Sieyès  [3],   / Sieyès / Paris : EDHIS , 1989</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/08684752X/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Oeuvres de Sieyès  [1],   / Sieyès  ; notes liminaires par Marcel Dorigny / Paris : EDHIS , 1989</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/002081652/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Les archives Sieyès  / Ministère des Affaires culturelles. Direction des Archives de France. Archives nationales  ; inventaire par Robert Marquant,..  ; avant-propos par Marcel Dunan, ... / Paris : S.E.V.P.E.N , 1970</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/003194728/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Les grandes oeuvres politiques  : de Machiavel à nos jours  / Jean-Jacques Chevallier / [2e éd.] / Paris : A. Colin , DL1990</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/158777042/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>La dottrina costituzionale di Sieyès  / Marco Goldoni / Firenze : Firenze University Press , 2009</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/092302769/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyes, his life and his nationalism  / by Glyndon G. Van Deusen / New York : Columbia University press , 1932</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/001218417/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Reason and Revolution  : the political thought of the Abbé Sieyes  / Murray Forsyth / Leicester, GB : Leicester university press , 1987</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/006504582/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Oeuvres de Sieyès  / notes liminaires par Marcel Dorigny / Paris : Edhis , 1989</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/087558726/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Le philosophe et l'administrateur  : Sieyès et la création du Conseil d'État  / Pierre-Yves Quiviger / Lille : Atelier national de Reproduction des Thèses , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/060201088/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Bürgerliche Freiheit  : Politische Philosophie von Hobbes bis Constant  / Karlfriedrich Herb / Freiburg : K. Alber , cop. 1999</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/275563855/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyes  : Et l'invention de la Constitution en France  / Pasquale Pasquino / Paris : Odile Jacob</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/167457659/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Séance publique annuelle du mercredi 28 décembre 1836  / Présidée par M. le comte Siméon  ; Institut royal de France, Académie des Sciences morales et politiques / Paris : Institut royal de France , 1836</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/167459538/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Funérailles de M. le comte Sieyès  : le 22 juin 1836  / Discours de M. le comte Siméon  ; Institut royal de France, Académie des Sciences morales et politiques / Paris : Institut royal de France , 1836</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/151833079/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Troisième discours de M. Thouret, a l'Assemblée nationale, sur l'organisation du pouvoir judiciaire. Séance du 28 avril 1790. Apperçu du projet de M. l'abbé Sieyes. / [Paris , 1790]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/184392403/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Lettre en réponse aux observations sommaires de M. l'abbé Sieyès sur les biens ecclésiastiques, par A.-B.-J. G**,... [Guffroy.] / [Sans lieu] , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/106221450/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès et le jury en matière civile  : discours prononcé à l'audience solennelle de rentrée le 3 novembre 1869  / par M. Arthur Desjardins  ; Cour impériale d'Aix / Aix : Typ. Remondet-Aubin, imprimeur de la cour impéraile, sur le cours, 53 , 1869</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/002658798/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Portraits, mémoires, souvenirs  / Benjamin Constant  ; textes établis et annotés par Éphrai͏̈m Harpaz / Paris : H. Champion , 1992</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/114030960/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Des manuscrits de Sieyès  Tome II, 1770-1815  / sous la direction de Christine Fauré / Paris : H. Champion , 2007</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/001925903/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès et sa pensée  / par Paul Bastid,... / Nouvelle édition revue et augmentée / [Paris] : Hachette , DL 1970</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/282181792/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Notice sur la vie de Sieyes, membre de la première Assemblée nationale et de la Convention. Ecrite à Paris, en Messidor 2e année de l'Ere républicaine. (V. St. juin et juillet 1794.)</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/227350871/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Cognition et ordre social chez Sieyès  : penser les possibles  / Jacques Guilhaumou / Paris : Éditions Kimé</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/045129568/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès  : la clé de la Révolution française  / Jean-Denis Bredin,... / Paris : Librairie générale française , DL 1990</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/228550653/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès et le monde allemand  Tome II,   / Marcelle Adler-Bresse  ; [thèse sous la direction d'Albert Soboul] / Lille : Atelier national de reproduction des thèses, Université de Lille III , 1977</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/004129466/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Le 18-Brumaire  : les coups d'État de Napoléon Bonaparte (novembre-décembre 1799)  / Thierry Lentz  ; préf. de Jacques Jourquin / Paris : J. Picollec , DL 1997</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/17947264X/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Volkssouveränität und Freiheitsrechte  : Emmanuel Joseph Sieyes' Staatsverständnis / Baden-Baden : Nomos , 2009, cop. 2009</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/051357135/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyes et le monde allemand  1,   / Marcelle Adler-Bresse / [Lieu de publication inconnu] : Atelier national de reproduction des thèses, Université Lille 3 , 1977</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/024649147/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès, l'homme--le constituant ...  : suivi d'un appendice sur les constitutions du 24 juin 1793 et du 22 frimaire an VIII  / Alphonse Armant Bigeon / Paris : H. Bécus , [1893]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/079045642/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Le philosophe et l'administrateur  : Sieyès et la création du Conseil d'Etat  / Pierre-Yves Quiviger  ; sous la dir. de André Tosel /  , 2003</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/086846965/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Oeuvres de Sieyès  [2],   / Sieyès / Paris : EDHIS , 1989</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/000603694/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès et le monde allemand  / Marcelle Adler-Bresse  ; [thèse sous la direction d'Albert Soboul] / Lille : Atelier national de reproduction des thèses, Université de Lille III , 1977</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/069207542/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès et l'ordre de la langue  : l'invention de la politique moderne  / Jacques Guilhaumou / Paris : Editions Kimé , DL 2002</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/228550491/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès et le monde allemand  Tome I,   / Marcelle Adler-Bresse  ; [thèse sous la direction d'Albert Soboul] / Lille : Atelier national de reproduction des thèses, Université de Lille III , 1977</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/261455923/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Les voies de la richesse ?  : la physiocratie en question (1760-1850)  / sous la direction de Gérard Klotz, Philippe Minard et Arnaud Orain / Rennes : Presses universitaires de Rennes</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/154237302/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès  / sous la direction de Pierre-Yves Quiviger / Paris : Editions Picard , 2011</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/004395824/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès et l'invention de la constitution en France  / Pasquale Pasquino / Paris : O. Jacob , DL 1998</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/010020756/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès et sa pensée  / par Paul Bastid,... / Paris : Hachette</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/041415701/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>L'influence de la théorie d'Emmanuel Sieyès sur les origines de la représentation en droit public  / Colette Clavreul Bonissel  ; sous la dir. de Michel Troper / [S.l.] : [s.n.] , 1982</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/080525210/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Advokative Volkssouveränität  : Carl Schmitts Konstruktion einer "demokratischen" Diktaturtheorie im Kontext der Interpretation politischer Theorien der Aufklärung  / von Ulrich Thiele / Berlin : Duncker &amp; Humblot</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/08161781X/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Notice sur la vie de Sieyès, membre de la première Assemblée nationale et de la Convention, écrite à Paris, en messidor, deuxième année de l'ère républicaine (vieux style, juin 1794). / En Suisse ; et Paris : Maradan , an III</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/268893578/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Emmanuel Joseph Sieyes, député de la ville de Paris, à l'assemblée nationale, en 1789, élu Président, le 7 juin 1790, [portrait]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/001275208/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès  : la clé de la Révolution française  / Jean-Denis Bredin / Paris : Editions de Fallois , DL 1988</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/065000870/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Les Discours de Sieyes dans les débats constitutionnels de l'an III (2 et 8 Thermidor) / Edition critique avec une introduction et des notes / Paris : Libr. Hachette , (1939)</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/061143316/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Emmanuel Joseph Sieyes und die Französische Revolution  / Alois Riklin / Bern : Stämpfli , 2001</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/229603629/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers-État ?  / pamphlet publié en 1789 par Sieyè  ;  précédé d'une étude sur l'auteur  / par M. Chapuys-Montlaville,... / Paris : Pagnerre , 1839</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/055728294/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès  : 1748-1836, d'après des documents inédits, avec un portrait d'après David  / Albéric Neton / 2e éd. rev. et augm. / Paris : Perrin et Cie , 1901</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/131344633/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Figures de Sieyès  : actes du colloque des 5 et 6 mars 2004 organisé à la Sorbonne  / par le Centre d'histoire des systèmes de pensée moderne et l'Institut d'histoire de la Révolution française, Université Paris I  ; publié sous la direction de Pierre-Yves Quiviger, Vincent Denis et Jean Salem / Paris : Publications de la Sorbonne , 2008</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/056676751/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès et sa pensée  / par Paul Bastid / Genève : Slatkine Reprints , 1978</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/018381332/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès (1748-1836)  : d'après des documents inédits  : avec un portrait d'après David  / Albéric Neton / 3. éd., revue et augmentée. / Paris : Perrin , 1901</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/076167615/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Les projets constitutionnels de Sieyès et la Constitution de l'an VIII  / Paul Gaucher  ; sous la dir. de M. Prelot /  , 1955</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/001051644/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Écrits politiques  / Emmanuel-Joseph Sieyes  ; choix et présentation Roberto Zapperi / Paris : Éditions des archives contemporaines</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/006145957/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès et l'Allemagne  / Marcelle Adler-Bresse / [S.l.] : [s.n.] , 1976</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/231969848/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Opere e testimonianze politiche  / Joseph-Emmanuel Sieyes  ; a cura di Giovanna Triosi Spagnoli  ; intr. di Pasquale Pasquino / Milano : Giuffrè , 1993</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/147987555/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Le 18 Brumaire  : les coups d'État de Napoléon Bonaparte  : novembre-décembre 1799  / Thierry Lentz / Paris : Perrin , impr. 2010</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/119917025/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Nación y revolución  : la teoría política de Emmanuel Sieyès  / Ramón Máiz / Madrid : Tecnos , DL 2007</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/240518322/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Un régicide ambassadeur à la cour des Hohenzollern  : Sieyés à Berlin  / Dominique Bourel / [Lieu de publication inconnu] : [éditeur inconnu] , [19..]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/253997755/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès, lecteur problématique des Lumières  / Christine Fauré / [Lieu de publication inconnu] : [éditeur inconnu] , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/244386463/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Constituent power  : a history  / Lucia Rubinelli,... / Cambridge [etc.] : Cambridge University Press , 2020</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/123927811/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Le principe d'immanence  : métaphysique et droit administratif chez Sieyès  : avec des textes inédits de Sieyès  / Pierre Yves Quiviger / Paris : H. Champion , 2008</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/004240715/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>A Rhetoric of bourgeois Revolution  : the Abbé Sieyes and "What is the Third Estate" ?  / William H. Sewell, Jr. / Durham (GB) : Duke University Press , 1994</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/150927851/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès  : le révolutionnaire et le conservateur  / Erwan Sommerer / Paris : Michalon Éditions , DL 2011</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/204606748/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Les voies de la richesse ?  : la physiocratie en question (1760-1850)  / sous la direction de Gérard Klotz, Philippe Minard et Arnaud Orain / Rennes : Presses Universitaires de Rennes , DL 2017</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/155096680/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Rousseau et le discours de la Révolution  : au piège des mots  : les physiocrates,  Sieyès, les idéologues  / Reinhard Bach / Uzès : Inclinaison , impr. 2011</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/24075087X/id">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès  : Le révolutionnaire et le conservateur  / Erwan Sommerer / Paris : Cairn , 2019</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://calames.abes.fr/pub/ms/Calames-20111011151018328198">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>[Ms Masson 505] Notices individuelles : Ra - Vol / 442 feuillets</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://calames.abes.fr/pub/ms/Calames-20194910450196368">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>[EHESS CESPRA FFUR 314] Sieyès (s. d.)</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://calames.abes.fr/pub/ms/Calames-2020911592674559">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>[CSB 28.8.4] Dominique Bourel, "Un régicide ambassadeur à la cour des Hohenzollern : Sieyès à Berlin" (1989) / 12 feuillets</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://calames.abes.fr/pub/ms/Calames-202141916455771630">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>[Objet 557] Portrait en médaillon représentant Emmanuel-Joseph Sieyès par David d'Angers (1835)</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://calames.abes.fr/pub/ms/Calames-202152512593363">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>[MMSH-PH-5276] Conférence de Jacques Guilhaumou (Triangle UMR 5206) sur le thème "La raison pratique des langages de la Révolution française, parcours d’historicité (1971-2017)"  (2017-03-24 ) / Durée : 57 min</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://calames.abes.fr/pub/ms/IF2020492">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Sieyès (Emmanuel-Joseph)</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://calames.abes.fr/pub/ms/IF2B10211">
+      <dcterms:subject rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>[F. 415-423] Allocution présentée par Sieyès et Condorcet aux membres de la Constituante. Préambule (19 juin 1793)</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/282181792/id">
+      <marcrel:dub rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Notice sur la vie de Sieyes, membre de la première Assemblée nationale et de la Convention. Ecrite à Paris, en Messidor 2e année de l'Ere républicaine. (V. St. juin et juillet 1794.)</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/044257929/id">
+      <marcrel:dub rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Observations sur le rapport du comité de constitution, concernant la nouvelle organisation de la France / A Versailles : chez Baudouin , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://calames.abes.fr/pub/ms/Calames-20107301174760823">
+      <marcrel:rcp rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>[668-672] Antoine Gouan (29 août 1776 - 31 janvier 1810)</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://calames.abes.fr/pub/ms/IF2B10208">
+      <marcrel:rcp rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>[F. 401-406] Lettre à un ami, probablement Emmanuel-Joseph Sieyès, sur la République en liaison avec la polémique Sieyès-Paine ([juillet 1791])</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/229508839/id">
+      <marcrel:clb rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Suite de la réfutation des principes de M. l'abbé Sieyès, sur les biens ecclésiastiques, etc  / Lebret de Saint-Martin, Emmanuel Joseph Sieyès</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/13837256X/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Ébauche d'un nouveau plan de société pátriotique  : adopté par le Club de mil sept cent quatre-vingt-neuf / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/196627753/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Convention nationale. Rapport fait à la Convention nationale, Le premier germinal, l'an III de la République, au nom des comités de salut public, de sureté générale et de législation, par Sieyes ; Imprimé par ordre de la Convention nationale. / A Paris, de l'Imprimerie nationale. Germinal, an 3 , 1795</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/119073447/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>¿Qué es el Tercer Estado?  ;   precedido de Ensayo sobre los privilegios  / Emmanuel Sieyes; introd. trad. y notas de Marta Lorente Sariñena y Lidia Vazquez Jiménez / Madrid : Alianza Editorial , 2003</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/074205692/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Journal d'instruction sociale par les citoyens Condorcet, Sieyes et Duhamel, 1793 / Paris : EDHIS , 1981</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/100259537/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Instruction donnée... à ses représentants aux Bailliages, suivie de Délibérations à prendre dans les assemblées. Seconde éd. corr. / S. l : s. n , [1789]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/231187815/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Préliminaire de la constitution  : reconnoissance et exposition raisonnée des droits de l'homme &amp; du citoyen par M. l'abbé Siéyes / Clermont-Ferrand : Delcros , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/125211198/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Escritos y discursos de la revolución   / Emmanuel Sieyès  ; Edición, traducción y notas de Ramón Máiz / Madrid : Centro de estudios políticos y constitucionales , 2007</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/100391052/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Projet d'un décret provisoire sur le clergé, &amp;c. Par M. l'abbé Sieyes. Du 12 février 1790 / A Paris :  de l'Imprimerie nationale ,  1790.</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/025829599/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Journal d'instruction sociale  / par les citoyens Condorcet, Sieyes et Duhamel / Paris : EDHIS , 1981</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/086846965/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Oeuvres de Sieyès  [2],   / Sieyès / Paris : EDHIS , 1989</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/10039101X/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Déclaration des droits de l'homme en société... / Versailles : Baudouin , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/100391028/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Essai sur les privileges. Attribué à M. le comte de Mirabeau.</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/18434283X/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Was ist der Dritte Stand ?  / Emmanuel Sieyès  ; Herausgegeben von Otto Dann / Essen : Reimar Hobbing , 1988</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/143079883/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers-État ?  / Emmanuel Joseph Sieyès / Milano : Fondazione Giangiacomo Feltrinelli</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/024362603/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Abhandlungen über die Privilegien  : Was ist der Dritte Stand?  / Hrsg. von Rolf Hellmut Foerster / [Frankfurt am Main : Insel-Verlag , 1968]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/162057997/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Emmanuel Sieyes politische Schriften, vollständig gesammelt von dem deutschen Uebersetzer, nebst zwei Vorreden über Sieyes Lebensgeschichte  : seine politische Rolle, seinen Charakter  : seine Schriften, etc...  / Emmanuel-Joseph Sieyès / [Lieu d'édition inconnu] : [éditeur inconnu] , 1796</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/114030960/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Des manuscrits de Sieyès  Tome II, 1770-1815  / sous la direction de Christine Fauré / Paris : H. Champion , 2007</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/187285802/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Essai sur les privilèges  / Emmanuel-Joseph Sieyès / Houilles : Éd. Manucius , 2010</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/102068194/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Notice sur la vie de Sieyès, membre de la première Assemblée nationale et de la Convention, écrite à Paris, en messidor, deuxième année de l'ère républicaine... / En Suisse ; et Paris : Maradan , an III</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/100391079/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Quelques idées de constitution applicables à la ville de Paris, en juillet 1789... / Versailles : Baudouin , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/145570983/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Opinion de M. Emm. Sieyès, député de Paris à l'Assemblée Nationale, le 7 mai 1791, en réponse à la dénonciation de l'Arrêté du Département de Paris, du 11 avril précédent, sur les édifices religieux et la liberté générale des cultes / [Paris] : Impr. Nationale , [1791?]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/123927811/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Le principe d'immanence  : métaphysique et droit administratif chez Sieyès  : avec des textes inédits de Sieyès  / Pierre Yves Quiviger / Paris : H. Champion , 2008</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/038114836/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Journal d'instruction sociale  / par les citoyens Condorcet, Sieyès et Duhamel / Paris : Impr. des Sourds-Muets , 1793</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/183213998/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Quelques idées de constitution applicables à la ville de Paris en juillet 1789. Par M. l'abbé Sieyès / A Versailles, chez Baudouin, Imprimeur de l'Assemblée nationale, avenue de Paris No 62 , [1789?]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/115439919/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Essai sur les privilèges et autres textes  / Emmanuel-Joseph Sieyès  ; introduction et édition critique de Pierre-Yves Quiviger,... / Paris : Dalloz , DL 2007</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/044257902/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Dire de l'abbé Sieyès, sur la question du veto royal, à la séance du 7 septembre 1789 / A Versailles : chez Baudouin , [1789]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/269773762/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Vues sur les moyens d'exécution dont les représentans de la France pourront disposer en 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/094707499/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Pro e contro la Rivoluzione  / E.J. Sieyes, M.I.F. de Robespierre, J. de Maistre  ; a cura di A.M. Rao, C. Galderisi e E. Rufi  ; introduzione di Giuseppe Galasso / Roma : Salerno , impr. 1989</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/125701705/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Journal d'instruction sociale  / par les citoyens Condorcet, Sieyès et Duhamel. [1er juin-6 juillet 1793.] / Paris : Impr. des sourds-muets , 1793</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/150234546/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Préliminaire de la constitution. Reconnoissance et exposition raisonnée des droits de l'homme et du citoyen. Lu les 20 et 21 juillet 1789, au comité de constitution. Par M. l'abbé Sieyes / A Paris, chez Baudouin, imprimeur de l'Assemblée nationale, rue du Foin-Saint-Jacques, n°. 31, 1789.</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/277055040/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Motion faite par M. l'abbé Sieyès du 10 juin 1789  : Suivie de l'arrêté des communes ; du même jour</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/231186789/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Rapport du Comité de Défense générale pour organiser le ministère de la guerre par Emmanuel Sieyès / [Lieu de publication inconnu] : [éditeur inconnu]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/048312770/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Des manuscrits de Sieyès  [Tome I], 1773-1799  / sous la direction de Christine Fauré  ; avec la collaboration de Jacques Guilhaumou et Jacques Valier / Paris : H. Champion , 1999</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/184922828/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Emmanuel Joseph Sieyes  : the essential political writings  / edited, with an introduction and historical annotations by Oliver W. Lembcke, Florian Weber</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/097151343/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Politische Schriften 1788-1790  / Emmanuel Joseph Sieyès / München : Oldenbourg , 1981</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/001302930/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers État ?  / Emmanuel Sieyès  ; préface de Jean-Denis Bredin / [Paris] : Flammarion , DL 1988</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/006504582/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Oeuvres de Sieyès  / notes liminaires par Marcel Dorigny / Paris : Edhis , 1989</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/102066841/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce-que le Tiers-État ? Troisième édition</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/162059582/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Meinung des Hérrn Sieyès, deputirten von Paris über den Pariser Departements-Sebluss vom 6ten Aprill jüngst, in Betref der Religions-Häuser und der allgemeinen Gottes-Verehrungen  / Sièyes / [Strassburg] , [1791]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/240281713/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers Etat ?  ;  précédé par l'Essai sur les privilèges  / par Emmanuel Sieyès  / par Jules Guiffrey  / par Émile Campardon / Edition critique / Paris : Société de l'histoire de la révolution française , 1888-1889</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/084682183/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Oeuvres de Sieyès  [3],   / Sieyès / Paris : EDHIS , 1989</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/138369097/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Essai sur les priviléges / Nouv. éd. / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/084894598/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Les Discours de Sieyès dans les débâts constitutionnels de l'an III (2 et 18 thermidor)  / Edition critique avec une introduction et des notes... par Paul Bastid / (Paris) : Hachette , (copr. 1949)</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/10206721X/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Notice sur la vie de Sieyès, membre de la première Assemblée nationale et de la Convention, écrite à Paris, en messidor, deuxième année de l'ère républicaine... / En Suisse ; et Paris : Maradan , an III</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/102066817/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Apperçu d'une nouvelle organisation de la justice et de la police en France  /  Par M. l'abbé Sieyès... / A Paris, :  de l'Imprimerie nationale. ,  Mars 1790.</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/020799292/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le tiers état?  / Précédé de l'essai sur les priviléges par l'Abbé Sieyes ... / Nouvelle édition / Paris : A. Correard , 1822</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/102066833/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Préliminaire de la Constitution. Reconnaissance et exposition raisonnée des droits de l'Homme et du Citoyen, par M. l'Abbé Sieyès</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/28051865X/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers-État ?</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/08161781X/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Notice sur la vie de Sieyès, membre de la première Assemblée nationale et de la Convention, écrite à Paris, en messidor, deuxième année de l'ère républicaine (vieux style, juin 1794). / En Suisse ; et Paris : Maradan , an III</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/28361921X/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Message Extrait du registre des déliberations du Directoire exécutif. Du 21 fructidor, l'an 7 de la République française, une et indivisible</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/026409097/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers Etat ?  ;  précédé par l'Essai sur les privilèges  / par Emmanuel Sieyès / Edition critique / Paris : Société de l'histoire de la révolution française , 1888</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/145423689/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers-État ? / Seconde édition, corrigée</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/138363145/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Observations sommaires sur les biens ecclésiastiques  : du 10 août 1789 / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/082971676/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le tiers-état ? / Seconde edition, corrigée / [S.l.] : [s.n.] , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/159362245/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Seconde partie du Rapport du nouveau Comité de Constitution, fait à l'Assemblée nationale, le mardi 29 septembre 1789, sur l'établissement des Assemblées administratives, et des nouvelles municipalités / A Versailles : chez Baudouin , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/162058519/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Préliminaire de la constitution  : Reconnoissance et exposition raisonnée des Droits de l'Homme et du Citoyen  : Lu les 20 et 21 Juillet 1789, au Comité de Constitution  / Par M. l'Abbé Sieyes / Rennes , [1789]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/127943706/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Observations sommaires sur les biens ecclésiastiques, du 10 août 1789... / A Paris : chez Baudouin, imprimeur de l'Assemblée nationale, rue du Foin-St.-Jacques, n. 31. 1789. , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/000528064/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers-État ?  ;  [Essai sur les privilèges]  / Emmanuel Sieyès  ; [publié par Edme Champion]  ; préface de Jean Tulard / Paris : PUF , 1982</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/08684752X/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Oeuvres de Sieyès  [1],   / Sieyès  ; notes liminaires par Marcel Dorigny / Paris : EDHIS , 1989</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/044257864/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers-Etat? / Troisième édition / [S.l. : sn] , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/100391036/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Préliminaires à la Constitution françoise. Reconnoissance et exposition raisonnée des droits de l'homme et du citoyen... / Paris : Baudouin , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/042642590/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Préliminaire de la constitution  : reconnaissance et exposition raisonnée des droits de l'homme et du citoyen  / par M. l'abbé Siéyes</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/101596472/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Journal d'Instruction sociale 1793  / Condorcet / [Lieu de publication inconnu] : Reprint, EDHIS , 1981</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/104605391/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>A constituinte burguesa  : que é o terceiro estado ?   / Emmanuel Joseph Siyès  ; organização e introdução Aurélio Wander Bastos  ; prefácio José Ribas Vieira  ; Tradução Norma Azeredo / 2e tirage / [Rio de Janeiro] : Liber Juris , cop. 1988</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/119071096/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Political writings  : including the debate between Sieyès and Tom Paine in 1791  / Emmanuel Joseph Sieyès  ; edited with an introduction and translation of "What is the third estate ?" by Michael Sonenscher / Indianapolis (Ind.) : Hackett publ. , cop. 2003</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/001482629/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Oeuvres  / de Sieyès  ; notes liminaires par Marcel Dorigny / Paris : EDHIS</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/044257856/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Essai sur les privilèges / Nouvelle édition / [S.l. : sn , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/002169770/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers État ?  / Emmanuel-Joseph Sieyès  ; édition critique, avec une introduction et des notes par Roberto Zapperi / Genève : Droz , 1970</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/152625089/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Instructions envoyées par S. A. S. monseigneur le duc d'Orléans. / [Paris? , 1789]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/230779042/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers état ?  / Sieyès  ; précédé d'un entretien avec Annie Jourdan  ; préface de Jean-Denis Bredin / [Nouvelle édition] / [Paris] : Flammarion , DL 2018</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/191172596/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Essai sur les privilèges et autres textes  / Emmanuel-Joseph Sieyès  ; introduction et édition critique de Pierre-Yves Quiviger,... / Paris : Dalloz , 2007</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/013009192/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers état ? précédé de l'Essai sur les privilèges par l'abbé Sieyès,... Nouvelle édition augmentée de vingt-trois notes par l'abbé Morellet</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/094358966/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>What is the Third Estate?  / Emmanuel Joseph Sieyès  ; translated by M. Blondel and edited with historical notes by S. E. Finer  ; introduction by Peter Campbell / London : Pall Mall , 1963</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/231969848/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Opere e testimonianze politiche  / Joseph-Emmanuel Sieyes  ; a cura di Giovanna Triosi Spagnoli  ; intr. di Pasquale Pasquino / Milano : Giuffrè , 1993</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/044257899/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Observations sommaires sur les biens ecclésiastiques, du 10 août 1789 / A Versailles : chez Baudouin , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/01163250X/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers état ?  / Emmanuel Sieyès  ; préf. de Jean-Denis Bredin / [Nouv. tirage] / Paris : Flammarion , 1989</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/183623878/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Emmanuel Joseph Sieyes  : the essential political writings  / edited, with an introduction and historical annotations by Oliver W. Lembcke, Florian Weber / Leiden : Brill , cop. 2014</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/100391044/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Préliminaire de la Constitution. Reconnaissance et exposition raisonnée des droits de l'homme et du citoyen... / Versailles : impr. de Ph. D. Pierres , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/14176533X/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>An essay on privileges,  : and particularly on hereditary nobility. Wiritten by the Abbe Sieyes, a member of the national assembly; and translated into English, with notes, by a foreign nobleman, now in England  / Sieyès, Emmanuel Joseph / Farmington Hills, Michigan : Cengage Gale , 2009</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/138682305/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers-État? / 3e éd. / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/11682137X/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Was ist der Dritte Stand ?  / Emmanuel Sieyès  ; übersetzt und eingeleitet von Otto Brandt / Berlin : R. Hobbing , 1924</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/276467825/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Abhandlung über die Privilegien  ;  Was ist der dritte Stand ?  / Emmanuel Sieyès  ; herausgegeben von Rolf Hellmut Foerster / [Frankfurt am Main] : Insel</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/260343978/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers Etat ?  ;  suivi du "Dire de l'abbé Sieyès sur la question du veto royal"  / Emmanuel-Joseph Sieyès  ; avant-propos de Eric Guéguen / Paris [etc.] : l'Esprit du Temps , DL 2021</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/234601892/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers état ?  / Emmanuel-Joseph Sieyès / Paris : MazetoSquare , DL 2018</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/044257880/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Quelques idées de constitution applicables à la ville de Paris en juillet 1789. Par M. l'abbé Sieyès.</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/009283722/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers Etat ?  : [précédé de  / L'essai sur les privilèges]  / Emmanuel Sieyès  ; préf. de Jean Tulard  ; [éd. critique avec une introd. par Edme Champion] / Paris : Presses universitaires de France , 1988</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/162060130/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Europa in Bezug auf den Frieden  / eine Rede des Abts Sieyes gehalten nach der Auflösung der Jacobiner in dem geheimen Ausschusse der Revolution am 12ten Frimaire im dritten Jahre der Französischen Republik  ; [Übers. von Karl Friedrich von dem Knesebeck] / London [i.e. Frankfurt] : [Esslinger] , im December 1794</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/138095647/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le tiers état?  : précédé de l'essai sur les privilèges  / par l'abbé Sieyes. / Nouvelle éd., / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/042654661/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Déclaration des droits de l'homme en société  / par M. l'abbé Sieyes</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/229603629/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers-État ?  / pamphlet publié en 1789 par Sieyè  ;  précédé d'une étude sur l'auteur  / par M. Chapuys-Montlaville,... / Paris : Pagnerre , 1839</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/101718721/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>An Essay in the politics of the French Revolution  / Abbé Sieyès / London : P.S. King et son, Orchard House Westminster , 1912</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/051550571/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Les discours de Sieyès dans les débats constitutionnels de l'an III (2 et 18 thermidor)  : édition critique avec une introduction et des notes  / par Paul Bastid,... / [Paris] : Hachette</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/128269308/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Instruction donnée par S. A. S. monseigneur le duc d'Orléans, à ses représentans aux bailliages. Suivie de Délibérations à prendre dans les assemblées. Quatrième édition, corrigée. / [S.l.] 1789.</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/044257848/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Vues sur les moyens d'exécution dont les représentans de la France pourront disposer en 1789 / Seconde édition / [S.l.] : sn , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/044257872/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Préliminaire de la constitution françoise  : reconnoissance et exposition raisonnée des droits de l'homme &amp; du citoyen  / par M. l'abbé Sieyès / A Paris : chez Baudouin , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/014022184/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Discours prononcé dans la séance du samedi 7 mai, au matin, par M. l'abbé Syeyes, administrateur du département de Paris &amp; membre de l'Assemblée nationale / [Rouen , 1791]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/132689103/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers état ?  / Sieyès  ; préface de Jean-Denis Bredin / [Nouvelle édition] / [Paris] : Flammarion , DL 2009</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/144348926/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Essai sur les privilèges  / Emmanuel-Joseph Sieyès / Houilles : Éd. Manucius , impr. 2010</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/159362229/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Rapport du nouveau Comité de Constitution, fait à l'Assemblée nationale. Le mardi 29 septembre 1789. Sur l'établissement des bases de la représentation proportionnelle / A Paris : chez Baudouin , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/100213448/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est ce que le Tiers-Etat ? / 3. ed. / [S. l.] : [s. n.] , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/231449798/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Convention nationale. Discours prononcé ... dans la séance du 20 ventôse, l'an III, par Sieyès ... / [Lieu de publication inconnu] : [éditeur inconnu]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/092276105/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Dire de l'abbé Sieyès, sur la question du Veto royal, à la séance du 7 septembre 1789  / Emmanuel-Joseph, Cte Sieyès / Paris : Baudouin , [S. d.]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/227267192/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Recueil de mémoires sur la Révolution  : Reconnaissance et exposition raisonnée des droits de l'homme et du citoyen  / Abbé Sieyès  / Jacques / Versailles : Imprimerie Pierre , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/143453521/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Instruction donnée par S. A. S. Mgr le duc d'Orléans à ses représentans aux bailliages  / [rédigées par Geoffroy de Limon]  / [Par l'abbé E.-J. Sieyès] / 3e éd. corrigée / [S.l.] : sn , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/067674100/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Instruction donnée par S. A. S. Mgr le duc d'Orléans à ses représentans aux bailliages  /  [rédigées par Geoffroy de Limon], suivies de délibérations à prendre dans les assemblées  / [Par l'abbé E.-J. Sieyès.] / 2e éd. / (S. l.,) : sn , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/13837368X/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Vues sur les moyens d'exécution  : dont les représentans de la France pourront disposer en 1789 / 2e éd. ... / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/138401470/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Projet d'un décret provisoire sur le clergé, &amp;c  : du 12 février 1790  / par M. l'abbé Sieyès. / [Farmington Hills, Mich] : Thomson Gale , 2005</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/162060246/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Die Rechte des Bürgers  / Sieyes, französischer Staatsrath  ; Neu übersetzt von Cramer / Zweite Auflage / Mainz : Volmer , 1801</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/162059140/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Opinion  : le 7 mai 1791, en réponse à la dénonciation de l'arrêté du département de Paris du 11 avril précédent  : sur les édifices religieux et la liberté générale des cultes  / de M. Emm. Sieyès, député de Paris à l'Assemblée Nationale  / Emm. Sieyès / A Strasbourg : chez Ph. Jac. Dannbach , [1791]</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/165253401/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Qu'est-ce que le Tiers état ?  : 1788  / Emmanuel Sieyès / Clermont-Ferrand : Éditions Paléo</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/102066825/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Essai sur les privilèges   / [par Sieyès]. / Nouvelle édition / (S. l.) : sn , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/100391087/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Vues sur les moyens d'exécution dont les représentans de la France pourront disposer en 1789 / [S. l.] : [s. n.] , 1789</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://www.sudoc.fr/001051644/id">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>Écrits politiques  / Emmanuel-Joseph Sieyes  ; choix et présentation Roberto Zapperi / Paris : Éditions des archives contemporaines</dcterms:bibliographicCitation>
+   </bibo:Document>
+   <bibo:Document rdf:about="https://calames.abes.fr/pub/ms/IF2C12230">
+      <marcrel:aut rdf:resource="http://www.idref.fr/028618661/id"/>
+      <dcterms:bibliographicCitation>[58] Sieyès, Emmanuel-Joseph (1748-1836)</dcterms:bibliographicCitation>
+   </bibo:Document>
+</rdf:RDF>

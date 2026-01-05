@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record>
+  <leader>     cx  a22     3  45  </leader>
+  <controlfield tag="001">028618661</controlfield>
+  <controlfield tag="003">http://www.idref.fr/028618661</controlfield>
+  <controlfield tag="004">19840420</controlfield>
+  <controlfield tag="005">20240507180754.000</controlfield>
+  <controlfield tag="006">0004</controlfield>
+  <controlfield tag="007">341720001</controlfield>
+  <controlfield tag="008">Tp5</controlfield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">0000000110275815</subfield>
+    <subfield code="2">ISNI</subfield>
+    <subfield code="C">BNF</subfield>
+    <subfield code="d">20150918</subfield>
+  </datafield>
+  <datafield tag="033" ind1=" " ind2=" ">
+    <subfield code="a">http://catalogue.bnf.fr/ark:/12148/cb12041767q</subfield>
+    <subfield code="2">BNF</subfield>
+    <subfield code="d">20150918</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">02771375X</subfield>
+    <subfield code="9">sudoc</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">09435894X</subfield>
+    <subfield code="9">sudoc</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">frBN003397379</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">frBN002034528</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">FRBNF120417671</subfield>
+    <subfield code="z">FRBNF12041767</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">http://viaf.org/viaf/59101071</subfield>
+    <subfield code="2">VIAF</subfield>
+    <subfield code="C">VIAF</subfield>
+    <subfield code="d">20200401</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">https://fr.wikipedia.org/wiki/Emmanuel-Joseph_Sieyès</subfield>
+    <subfield code="2">WIKIPEDIA</subfield>
+    <subfield code="C">VIAF</subfield>
+    <subfield code="d">20240417</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">https://www.persee.fr/authority/417708</subfield>
+    <subfield code="2">PERSEE</subfield>
+    <subfield code="C">PERSEE</subfield>
+    <subfield code="d">20240429</subfield>
+  </datafield>
+  <datafield tag="100" ind1=" " ind2=" ">
+    <subfield code="a">19840420afrey50      ba0</subfield>
+  </datafield>
+  <datafield tag="101" ind1=" " ind2=" ">
+    <subfield code="a">fre</subfield>
+    <subfield code="2">639-2</subfield>
+  </datafield>
+  <datafield tag="102" ind1=" " ind2=" ">
+    <subfield code="a">FR</subfield>
+  </datafield>
+  <datafield tag="103" ind1=" " ind2=" ">
+    <subfield code="a"> 17480503 </subfield>
+    <subfield code="b"> 18360620 </subfield>
+  </datafield>
+  <datafield tag="106" ind1=" " ind2=" ">
+    <subfield code="a">0</subfield>
+    <subfield code="b">1</subfield>
+    <subfield code="c">0</subfield>
+  </datafield>
+  <datafield tag="120" ind1=" " ind2=" ">
+    <subfield code="a">ba</subfield>
+  </datafield>
+  <datafield tag="152" ind1=" " ind2=" ">
+    <subfield code="a">AFNOR</subfield>
+  </datafield>
+  <datafield tag="200" ind1=" " ind2="1">
+    <subfield code="7">ba0yba0y</subfield>
+    <subfield code="9">0</subfield>
+    <subfield code="a">Sieyès</subfield>
+    <subfield code="b">Emmanuel-Joseph</subfield>
+    <subfield code="f">1748-1836</subfield>
+  </datafield>
+  <datafield tag="340" ind1=" " ind2=" ">
+    <subfield code="7">ba0yba0y</subfield>
+    <subfield code="a">Vicaire général de Chartres. Théoricien révolutionnaire et homme politique sous la Révolution et l'Empire</subfield>
+  </datafield>
+  <datafield tag="400" ind1=" " ind2="1">
+    <subfield code="7">ba0yba0y</subfield>
+    <subfield code="9">#</subfield>
+    <subfield code="a">Sieyès</subfield>
+    <subfield code="b">abbé</subfield>
+  </datafield>
+  <datafield tag="801" ind1=" " ind2="3">
+    <subfield code="a">FR</subfield>
+    <subfield code="b">Abes</subfield>
+    <subfield code="c">20240507</subfield>
+    <subfield code="g">AFNOR</subfield>
+    <subfield code="h">02771375X</subfield>
+  </datafield>
+  <datafield tag="801" ind1=" " ind2="3">
+    <subfield code="a">FR</subfield>
+    <subfield code="b">Abes</subfield>
+    <subfield code="c">20240507</subfield>
+    <subfield code="g">AFNOR</subfield>
+    <subfield code="h">09435894X</subfield>
+  </datafield>
+  <datafield tag="810" ind1=" " ind2=" ">
+    <subfield code="a">Écrits politiques / Emmanuel-Joseph Sieyes ; choix et présentation, Roberto Zapperi, 1985</subfield>
+  </datafield>
+  <datafield tag="810" ind1=" " ind2=" ">
+    <subfield code="a">240 dans un fauteuil : la saga des présidents de l'Assemblée / Philippe Séguin, 1995</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">Sieyès, Emmanuel-Joseph (1748-1836)</subfield>
+  </datafield>
+  <datafield tag="901" ind1=" " ind2=" ">
+    <subfield code="a">Sieyès, abbé</subfield>
+  </datafield>
+</record>
+
