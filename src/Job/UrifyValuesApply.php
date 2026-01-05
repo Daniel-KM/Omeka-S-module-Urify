@@ -61,6 +61,11 @@ class UrifyValuesApply extends AbstractJob
     protected $translator;
 
     /**
+     * @var string
+     */
+    protected $userAgent;
+
+    /**
      * @var \Mapper\Stdlib\Mapper|null
      */
     protected $mapper;
@@ -92,6 +97,9 @@ class UrifyValuesApply extends AbstractJob
         $this->connection = $services->get('Omeka\Connection');
         $this->entityManager = $services->get('Omeka\EntityManager');
         $this->dataTypeManager = $services->get('Omeka\DataTypeManager');
+
+        $moduleVersion = $services->get('Omeka\ModuleManager')->getModule('Urify')->getIni('version');
+        $this->userAgent = 'Omeka-S-Urify/' . $moduleVersion;
 
         // Check and prepare each option.
 
@@ -154,6 +162,23 @@ class UrifyValuesApply extends AbstractJob
 
         // TODO Use a language to fill.
 
+        $this->arguments['updateMode'] = $this->getArg('updateMode') ?? 'single';
+        $this->arguments['updateMapper'] = $this->getArg('updateMapper');
+
+        // Validate mapper for multiple mode.
+        if ($this->arguments['updateMode'] === 'multiple') {
+            if (!$this->arguments['updateMapper']) {
+                $hasError = true;
+                $this->logger->err('A mapper is required when using mode "multiple".'); // @translate
+            }
+            if (!class_exists('Mapper\Module', false)) {
+                $hasError = true;
+                $this->logger->err('The module Mapper is required for mode "multiple".'); // @translate
+            } else {
+                $this->mapper = $services->get(\Mapper\Stdlib\Mapper::class);
+            }
+        }
+
         if (!class_exists('ValueSuggest\Module', false)) {
             $hasError = true;
             $this->logger->err(
@@ -196,10 +221,16 @@ class UrifyValuesApply extends AbstractJob
 
     protected function urify()
     {
+        if ($this->arguments['updateMode'] === 'multiple') {
+            $this->urifyMultiple();
+            return;
+        }
+
         // A global sql is simple to use, but it won't run sub-jobs for indexes,
         // title update, etc. So use a simple batch loop on resource ids.
 
-        // The other way is to run a sql, get the list of modified resource ids and to run a loop on them. But it is not possible for some tools.
+        // The other way is to run a sql, get the list of modified resource ids
+        // and to run a loop on them. But it is not possible for some tools.
 
         // If there is a query, use it.
         // TODO When AdvancedSearch is available, use a sub-query.
@@ -315,5 +346,298 @@ class UrifyValuesApply extends AbstractJob
             'Urification ended for {count} resources: {resource_ids}', // @translate
             ['count' => count($processedIds), 'resource_ids' => implode(', ', $processedIds)]
         );
+    }
+
+    /**
+     * Urify values using a mapper to convert remote data into multiple values.
+     *
+     * So:
+     * - Fetch xml or rdf from the uri;
+     * - convert output to Omeka resource values via the mapper;
+     * - Replace all values of the matching resources with the mapped values;
+     * - Keep existing values for properties not in the mapping.
+     *
+     * @todo Create a stdlib in Mapper to manage applying a mapper to a resource, with different modes (add, update, replace, etc.).
+     */
+    protected function urifyMultiple(): void
+    {
+        $uri = $this->arguments['uri'];
+
+        // 1. Load mapper first to get media type for content negotiation.
+        // Mapper reference can be a database ID (numeric) or a file reference (module:path or user:path).
+        $updateMapper = $this->arguments['updateMapper'];
+        $mapperRef = is_numeric($updateMapper)
+            ? 'mapping:' . $updateMapper
+            : $updateMapper;
+        try {
+            $this->mapper->setMapping('urify', $mapperRef);
+        } catch (\Exception $e) {
+            $this->logger->err(
+                'Unable to load mapper "{mapper}": {error}', // @translate
+                ['mapper' => $this->arguments['updateMapper'], 'error' => $e->getMessage()]
+            );
+            return;
+        }
+
+        // Get the media type from mapper info section, or use default for rdf/xml.
+        $mapperConfig = $this->mapper->getMapperConfig();
+        $mediaType = $mapperConfig->getSectionSetting('info', 'media_type')
+            ?? 'application/rdf+xml, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.5';
+
+        // 2. Fetch data from the URI with appropriate Accept header.
+        $this->httpClient->reset();
+        $this->httpClient->setUri($uri);
+        $this->httpClient->setOptions([
+            'timeout' => 30,
+            'useragent' => $this->userAgent,
+        ]);
+        $this->httpClient->setHeaders([
+            'Accept' => $mediaType,
+        ]);
+
+        try {
+            $response = $this->httpClient->send();
+        } catch (\Exception $e) {
+            $this->logger->err(
+                'Unable to fetch data from URI "{uri}": {error}', // @translate
+                ['uri' => $uri, 'error' => $e->getMessage()]
+            );
+            return;
+        }
+
+        if (!$response->isSuccess()) {
+            $this->logger->err(
+                'Unable to fetch data from URI "{uri}": HTTP {status}', // @translate
+                ['uri' => $uri, 'status' => $response->getStatusCode()]
+            );
+            return;
+        }
+
+        $xmlContent = $response->getBody();
+
+        // 3. Parse xml.
+        try {
+            $simpleXml = new \SimpleXMLElement($xmlContent);
+        } catch (\Exception $e) {
+            $this->logger->err(
+                'Invalid XML from URI "{uri}": {error}', // @translate
+                ['uri' => $uri, 'error' => $e->getMessage()]
+            );
+            return;
+        }
+
+        // 4. Convert xml to Omeka resource values using the mapper.
+        $mappedValues = $this->mapper->convert($simpleXml);
+
+        if (empty($mappedValues)) {
+            $this->logger->warn(
+                'No values mapped from URI "{uri}" using mapper "{mapper}".', // @translate
+                ['uri' => $uri, 'mapper' => $this->arguments['updateMapper']]
+            );
+            return;
+        }
+
+        $this->logger->info(
+            'Mapped {count} properties from URI "{uri}".', // @translate
+            ['count' => count($mappedValues), 'uri' => $uri]
+        );
+
+        // Convert mapper output to Omeka API format.
+        $mappedValues = $this->convertMappedValuesToResource($mappedValues);
+
+        // 5. Find resources with matching value (see single mode).
+        $resourceIds = null;
+        if ($this->arguments['query']) {
+            $resourceIds = $this->api->search('items', $this->arguments['query'], ['returnScalar' => 'id'])->getContent();
+            if (!count($resourceIds)) {
+                $this->logger->warn(
+                    'The query returned no resources.' // @translate
+                );
+                return;
+            }
+        }
+
+        // Build query to find resources with the value to replace.
+        if (class_exists('AdvancedSearch\Module', false)) {
+            $valueQuery = [
+                'filter' => [
+                    [
+                        'join' => 'and',
+                        'field' => $this->arguments['property'],
+                        'type' => 'eq',
+                        'val' => $this->arguments['value'],
+                        'datatype' => $this->arguments['data_types'],
+                    ],
+                ],
+            ];
+        } else {
+            $valueQuery = [
+                'property' => [
+                    [
+                        'joiner' => 'and',
+                        'property' => $this->arguments['property'],
+                        'type' => 'eq',
+                        'text' => $this->arguments['value'],
+                    ],
+                ],
+            ];
+        }
+        if ($resourceIds) {
+            $valueQuery['id'] = $resourceIds;
+        }
+
+        $propertyIdsByTerms = $this->easyMeta->propertyIds();
+        $lowerValue = mb_convert_case($this->arguments['value'], MB_CASE_FOLD, 'UTF-8');
+
+        $resourceIds = $this->api->search('items', $valueQuery, ['returnScalar' => 'id'])->getContent();
+        $resourceIds = array_map('intval', $resourceIds);
+        $processedIds = [];
+
+        // 6. Update each resource.
+        foreach ($resourceIds as $resourceId) {
+            if ($this->shouldStop()) {
+                $this->logger->notice(
+                    'Urification (multiple) ended for {count} resources: {resource_ids}', // @translate
+                    ['count' => count($processedIds), 'resource_ids' => implode(', ', $processedIds)]
+                );
+                $this->logger->warn(
+                    'The job was stopped.' // @translate
+                );
+                return;
+            }
+
+            try {
+                /** @var \Omeka\Api\Representation\ItemRepresentation $item */
+                $item = $this->api->read('items', ['id' => $resourceId])->getContent();
+            } catch (\Exception $e) {
+                continue;
+            }
+
+            // Get existing values.
+            $itemValues = array_intersect_key($item->jsonSerialize(), $propertyIdsByTerms);
+            if (!isset($itemValues[$this->arguments['property']])
+                || !count($itemValues[$this->arguments['property']])
+            ) {
+                continue;
+            }
+
+            // Ensure proper array format.
+            $itemValues = json_decode(json_encode($itemValues), true);
+
+            // Check if the item really contains the value we're replacing.
+            $hasMatchingValue = false;
+            foreach ($itemValues[$this->arguments['property']] as $key => $value) {
+                if (mb_convert_case(strval($value['@value'] ?? ''), MB_CASE_FOLD, 'UTF-8') === $lowerValue
+                    && in_array($value['type'], $this->arguments['data_types'])
+                ) {
+                    // Remove the original value that is being replaced.
+                    unset($itemValues[$this->arguments['property']][$key]);
+                    $hasMatchingValue = true;
+                }
+            }
+
+            if (!$hasMatchingValue) {
+                continue;
+            }
+
+            // Re-index the array after removing elements.
+            $itemValues[$this->arguments['property']] = array_values($itemValues[$this->arguments['property']]);
+            if (empty($itemValues[$this->arguments['property']])) {
+                unset($itemValues[$this->arguments['property']]);
+            }
+
+            // Merge mapped values with existing values.
+            // For each mapped property, replace or add the values.
+            foreach ($mappedValues as $property => $values) {
+                // Skip non-property fields (like o:resource_class, etc.).
+                if (!isset($propertyIdsByTerms[$property])) {
+                    continue;
+                }
+                // Replace/add mapped property values.
+                $itemValues[$property] = $values;
+            }
+
+            $this->api->update('items', $resourceId, $itemValues, [], ['isPartial' => true]);
+
+            $processedIds[] = $resourceId;
+            if (count($processedIds) % 100 === 0) {
+                // The entity manager is already flushed via api update.
+                $this->entityManager->clear();
+            }
+        }
+
+        $this->logger->notice(
+            'Urification (multiple) ended for {count} resources: {resource_ids}', // @translate
+            ['count' => count($processedIds), 'resource_ids' => implode(', ', $processedIds)]
+        );
+    }
+
+    /**
+     * Convert mapper output for resources.
+     *
+     * The mapper returns values like:
+     *   ['dcterms:title' => ['My title'], 'dcterms:language' => ['http://...']]
+     *
+     * The resource should be:
+     *   ['dcterms:title' => [['type' => 'literal', 'property_id' => 1, '@value' => 'My title']]]
+     */
+    protected function convertMappedValuesToResource(array $mappedValues): array
+    {
+        $result = [];
+        $propertyIdsByTerms = $this->easyMeta->propertyIds();
+
+        foreach ($mappedValues as $term => $values) {
+            // Skip non-property fields (like o:resource_class, o:resource_template).
+            // TODO Manage non-property fields.
+            if (!isset($propertyIdsByTerms[$term])) {
+                continue;
+            }
+
+            $propertyId = $propertyIdsByTerms[$term];
+
+            foreach ($values as $value) {
+                // Handle values that are already in array format (with metadata).
+                if (is_array($value)) {
+                    $val = [
+                        'type' => $value['type'] ?? $value['datatype'] ?? 'literal',
+                        'property_id' => $propertyId,
+                    ];
+                    if (isset($value['@value']) || isset($value['__value'])) {
+                        $val['@value'] = $value['@value'] ?? $value['__value'];
+                    }
+                    if (isset($value['@id'])) {
+                        $val['@id'] = $value['@id'];
+                    }
+                    if (isset($value['@language'])) {
+                        $val['@language'] = $value['@language'];
+                    }
+                    if (isset($value['o:label'])) {
+                        $val['o:label'] = $value['o:label'];
+                    }
+                    if (isset($value['is_public'])) {
+                        $val['is_public'] = $value['is_public'];
+                    }
+                } else {
+                    $stringValue = (string) $value;
+                    if (filter_var($stringValue, FILTER_VALIDATE_URL)) {
+                        $val = [
+                            'type' => 'uri',
+                            'property_id' => $propertyId,
+                            '@id' => $stringValue,
+                        ];
+                    } else {
+                        $val = [
+                            'type' => 'literal',
+                            'property_id' => $propertyId,
+                            '@value' => $stringValue,
+                        ];
+                    }
+                }
+
+                $result[$term][] = $val;
+            }
+        }
+
+        return $result;
     }
 }
