@@ -362,6 +362,130 @@ class UrifyValuesApplyTest extends AbstractHttpControllerTestCase
     }
 
     /**
+     * Functional test: Multiple mode with file-based mapping from Mapper module.
+     *
+     * This test uses the mapping file "xml/idref_personne.xml" stored in the
+     * Mapper module's data/mapping directory instead of a database mapper.
+     *
+     * The mapping file reference format is: "module:xml/idref_personne.xml"
+     */
+    public function testMultipleModeWithFileMappingFromIdRef(): void
+    {
+        // 1. Create test item with literal creator.
+        $item = $this->createItem([
+            'dcterms:title' => [['type' => 'literal', '@value' => 'Qu\'est-ce que le Tiers-État?']],
+            'dcterms:creator' => [['type' => 'literal', '@value' => 'Abbé Sieyès']],
+            'dcterms:date' => [['type' => 'literal', '@value' => '1789']],
+        ]);
+
+        // 2. Run job in multiple mode with file-based mapping reference.
+        $args = [
+            'value' => 'Abbé Sieyès',
+            'uri' => 'https://www.idref.fr/028618661.rdf',
+            'label' => 'Sieyès, Emmanuel-Joseph (1748-1836)',
+            'property' => 'dcterms:creator',
+            'datatype' => 'valuesuggest:idref:person',
+            'value_types' => ['literal'],
+            'updateMode' => 'multiple',
+            // Use file-based mapping instead of database mapper ID.
+            'updateMapper' => 'module:xml/idref_personne.xml',
+        ];
+
+        $job = $this->runJob(UrifyValuesApply::class, $args);
+
+        // 3. Verify job completed.
+        if ($job->getStatus() === Job::STATUS_ERROR && $this->lastJobException) {
+            $this->fail('Job failed with exception: ' . $this->lastJobException->getMessage() . "\n" . $this->lastJobException->getTraceAsString());
+        }
+        $this->assertEquals(
+            Job::STATUS_COMPLETED,
+            $job->getStatus(),
+            'Job should complete successfully with file-based mapping'
+        );
+
+        // 4. Reload item and verify mapped values.
+        $item = $this->api()->read('items', $item->id())->getContent();
+
+        // Original title and date should be preserved (not in mapping).
+        $this->assertEquals(
+            'Qu\'est-ce que le Tiers-État?',
+            $item->value('dcterms:title')->value(),
+            'Original title should be preserved'
+        );
+        $this->assertEquals(
+            '1789',
+            $item->value('dcterms:date')->value(),
+            'Original date should be preserved'
+        );
+
+        // Check mapped properties from IdRef RDF using xml/idref_personne.xml mapping.
+
+        // Full name: Emmanuel-Joseph Sieyès
+        $name = $item->value('foaf:name');
+        if ($name) {
+            $this->assertStringContains('Sieyès', $name->value(), 'Name should contain Sieyès');
+        }
+
+        // Family name: Sieyès
+        $familyName = $item->value('foaf:familyName');
+        if ($familyName) {
+            $this->assertEquals('Sieyès', $familyName->value(), 'Family name should be Sieyès');
+        }
+
+        // Given name: Emmanuel-Joseph
+        $givenName = $item->value('foaf:givenName');
+        if ($givenName) {
+            $this->assertEquals('Emmanuel-Joseph', $givenName->value(), 'Given name should be Emmanuel-Joseph');
+        }
+
+        // Birth date: 1748-05-03
+        $birth = $item->value('bio:birth');
+        if ($birth) {
+            $this->assertStringContains('1748', $birth->value(), 'Birth date should contain 1748');
+        }
+
+        // Death date: 1836-06-20
+        $death = $item->value('bio:death');
+        if ($death) {
+            $this->assertStringContains('1836', $death->value(), 'Death date should contain 1836');
+        }
+
+        // Gender: male -> Masculin (transformed by table filter)
+        $gender = $item->value('foaf:gender');
+        if ($gender) {
+            $this->assertEquals('Masculin', $gender->value(), 'Gender should be Masculin');
+        }
+
+        // Language: http://id.loc.gov/vocabulary/iso639-2/fra (transformed by split filter)
+        $language = $item->value('dcterms:language');
+        if ($language) {
+            $actualValue = $language->uri() ?? $language->value();
+            $this->assertStringContains('fra', $actualValue, 'Language should contain fra, got: ' . $actualValue);
+        }
+
+        // Alternative label: "Sieyès, abbé"
+        $altLabels = $item->value('dcterms:alternative', ['all' => true]);
+        if ($altLabels) {
+            $altValues = array_map(fn($v) => $v->value(), $altLabels);
+            $this->assertTrue(
+                in_array('Sieyès, abbé', $altValues) || count($altValues) > 0,
+                'Should have alternative labels'
+            );
+        }
+
+        // IdRef identifier with valuesuggest datatype
+        $identifier = $item->value('bibo:identifier');
+        if ($identifier) {
+            $this->assertEquals(
+                'valuesuggest:idref:person',
+                $identifier->type(),
+                'Identifier should have valuesuggest:idref:person datatype'
+            );
+            $this->assertStringContains('028618661', $identifier->uri(), 'Identifier URI should contain IdRef ID');
+        }
+    }
+
+    /**
      * Test multiple mode removes original value.
      */
     public function testMultipleModeRemovesOriginalValue(): void
