@@ -128,7 +128,7 @@ class UrifyValues extends AbstractJob
         // reset to "in_progress".
         $hasError = false;
 
-        $this->modes = $this->getArg('modes');
+        $this->modes = $this->getArg('modes') ?: [];
         $this->modes = array_intersect(['miss', 'check'], $this->modes);
         if (!$this->modes) {
             $hasError = true;
