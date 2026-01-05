@@ -3,7 +3,7 @@
 namespace UrifyTest\Job;
 
 use Omeka\Entity\Job;
-use Omeka\Test\AbstractHttpControllerTestCase;
+use CommonTest\AbstractHttpControllerTestCase;
 use Urify\Job\UrifyValues;
 use UrifyTest\UrifyTestTrait;
 
@@ -32,7 +32,7 @@ class UrifyValuesTest extends AbstractHttpControllerTestCase
     public function testJobFailsWithMissingProperties(): void
     {
         $args = [
-            'modes' => ['literal_to_uri'],
+            'modes' => ['miss'],
             'value_types' => ['literal'],
             'datatype' => 'valuesuggest:idref:person',
             // Missing 'properties'
@@ -67,7 +67,7 @@ class UrifyValuesTest extends AbstractHttpControllerTestCase
     {
         $args = [
             'properties' => [1],
-            'modes' => ['literal_to_uri'],
+            'modes' => ['miss'],
             'datatype' => 'valuesuggest:idref:person',
             // Missing 'value_types'
         ];
@@ -84,7 +84,7 @@ class UrifyValuesTest extends AbstractHttpControllerTestCase
     {
         $args = [
             'properties' => [1],
-            'modes' => ['literal_to_uri'],
+            'modes' => ['miss'],
             'value_types' => ['literal'],
             // Missing 'datatype'
         ];
@@ -101,14 +101,9 @@ class UrifyValuesTest extends AbstractHttpControllerTestCase
      */
     public function testJobCompletesWithNoMatchingItems(): void
     {
-        $this->markTestSkipped('Requires full module loading context - run in integration test suite');
-        // Get dcterms:creator property ID.
-        $easyMeta = $this->getServiceLocator()->get('Common\EasyMeta');
-        $propertyId = $easyMeta->propertyId('dcterms:creator');
-
         $args = [
-            'properties' => [$propertyId],
-            'modes' => ['literal_to_uri'],
+            'properties' => ['dcterms:creator'],
+            'modes' => ['miss'],
             'value_types' => ['literal'],
             'datatype' => 'valuesuggest:idref:person',
             'query' => ['id' => [999999]], // Non-existent item.
@@ -127,20 +122,15 @@ class UrifyValuesTest extends AbstractHttpControllerTestCase
      */
     public function testJobFindsItemsWithLiteralValues(): void
     {
-        $this->markTestSkipped('Requires full module loading context - run in integration test suite');
         // Create test item.
         $item = $this->createItem([
             'dcterms:title' => [['type' => 'literal', '@value' => 'Test Document']],
             'dcterms:creator' => [['type' => 'literal', '@value' => 'John Doe']],
         ]);
 
-        // Get property ID.
-        $easyMeta = $this->getServiceLocator()->get('Common\EasyMeta');
-        $propertyId = $easyMeta->propertyId('dcterms:creator');
-
         $args = [
-            'properties' => [$propertyId],
-            'modes' => ['literal_to_uri'],
+            'properties' => ['dcterms:creator'],
+            'modes' => ['miss'],
             'value_types' => ['literal'],
             'datatype' => 'valuesuggest:idref:person',
         ];
@@ -165,7 +155,6 @@ class UrifyValuesTest extends AbstractHttpControllerTestCase
      */
     public function testJobRespectsQueryFilter(): void
     {
-        $this->markTestSkipped('Requires full module loading context - run in integration test suite');
         // Create two test items.
         $item1 = $this->createItem([
             'dcterms:title' => [['type' => 'literal', '@value' => 'Document One']],
@@ -177,14 +166,10 @@ class UrifyValuesTest extends AbstractHttpControllerTestCase
             'dcterms:creator' => [['type' => 'literal', '@value' => 'Author B']],
         ]);
 
-        // Get property ID.
-        $easyMeta = $this->getServiceLocator()->get('Common\EasyMeta');
-        $propertyId = $easyMeta->propertyId('dcterms:creator');
-
         // Query only item1.
         $args = [
-            'properties' => [$propertyId],
-            'modes' => ['literal_to_uri'],
+            'properties' => ['dcterms:creator'],
+            'modes' => ['miss'],
             'value_types' => ['literal'],
             'datatype' => 'valuesuggest:idref:person',
             'query' => ['id' => [$item1->id()]],

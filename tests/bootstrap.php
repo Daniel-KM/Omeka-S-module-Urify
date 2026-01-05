@@ -6,7 +6,7 @@
  * Use Common module Bootstrap helper for test setup.
  */
 
-require dirname(__DIR__, 3) . '/modules/Common/test/Bootstrap.php';
+require dirname(__DIR__, 3) . '/modules/Common/tests/Bootstrap.php';
 
 \CommonTest\Bootstrap::bootstrap(
     [

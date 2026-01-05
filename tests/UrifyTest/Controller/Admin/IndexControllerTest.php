@@ -2,7 +2,7 @@
 
 namespace UrifyTest\Controller\Admin;
 
-use Omeka\Test\AbstractHttpControllerTestCase;
+use CommonTest\AbstractHttpControllerTestCase;
 use UrifyTest\UrifyTestTrait;
 
 /**

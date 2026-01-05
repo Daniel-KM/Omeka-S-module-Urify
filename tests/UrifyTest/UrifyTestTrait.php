@@ -18,38 +18,54 @@ trait UrifyTestTrait
     protected $services;
 
     /**
-     * @var array List of created resource IDs for cleanup.
+     * @var array IDs of items created during tests (for cleanup).
      */
-    protected $createdResources = [];
+    protected array $createdResources = [];
 
     /**
-     * @var array List of created mapper IDs for cleanup.
+     * @var array IDs of mappers created during tests (for cleanup).
      */
-    protected $createdMappers = [];
+    protected array $createdMappers = [];
 
     /**
-     * Get the API manager.
+     * @var bool Whether admin is logged in.
      */
-    protected function api(): ApiManager
-    {
-        return $this->getServiceLocator()->get('Omeka\ApiManager');
-    }
+    protected bool $isLoggedIn = false;
 
     /**
      * Get the service locator.
      */
     protected function getServiceLocator(): ServiceLocatorInterface
     {
-        if ($this->services === null) {
-            $this->services = $this->getApplication()->getServiceManager();
+        if (isset($this->application) && $this->application !== null) {
+            return $this->application->getServiceManager();
         }
-        return $this->services;
+        return $this->getApplication()->getServiceManager();
+    }
+
+    /**
+     * Reset the cached service locator.
+     */
+    protected function resetServiceLocator(): void
+    {
+        $this->services = null;
+    }
+
+    /**
+     * Get the API manager.
+     */
+    protected function api(): ApiManager
+    {
+        if ($this->isLoggedIn) {
+            $this->ensureLoggedIn();
+        }
+        return $this->getServiceLocator()->get('Omeka\ApiManager');
     }
 
     /**
      * Get the entity manager.
      */
-    protected function getEntityManager()
+    public function getEntityManager(): \Doctrine\ORM\EntityManager
     {
         return $this->getServiceLocator()->get('Omeka\EntityManager');
     }
@@ -59,7 +75,22 @@ trait UrifyTestTrait
      */
     protected function loginAdmin(): void
     {
-        $auth = $this->getServiceLocator()->get('Omeka\AuthenticationService');
+        $this->isLoggedIn = true;
+        $this->ensureLoggedIn();
+    }
+
+    /**
+     * Ensure admin is logged in on the current application instance.
+     */
+    protected function ensureLoggedIn(): void
+    {
+        $services = $this->getServiceLocator();
+        $auth = $services->get('Omeka\AuthenticationService');
+
+        if ($auth->hasIdentity()) {
+            return;
+        }
+
         $adapter = $auth->getAdapter();
         $adapter->setIdentity('admin@example.com');
         $adapter->setCredential('root');
@@ -71,6 +102,7 @@ trait UrifyTestTrait
      */
     protected function logout(): void
     {
+        $this->isLoggedIn = false;
         $auth = $this->getServiceLocator()->get('Omeka\AuthenticationService');
         $auth->clearIdentity();
     }
@@ -136,7 +168,7 @@ trait UrifyTestTrait
     {
         $response = $this->api()->create('mappers', [
             'o:label' => $label,
-            'o:mapping' => $mapping,
+            'o-mapper:mapping' => $mapping,
         ]);
         $mapper = $response->getContent();
         $this->createdMappers[] = $mapper->id();
@@ -300,6 +332,14 @@ INI;
     }
 
     /**
+     * Get the path to the fixtures directory.
+     */
+    protected function getFixturesPath(): string
+    {
+        return dirname(__DIR__) . '/fixtures';
+    }
+
+    /**
      * Get a fixture file content.
      *
      * @param string $name Fixture filename.
@@ -307,7 +347,7 @@ INI;
      */
     protected function getFixture(string $name): string
     {
-        $path = dirname(__DIR__) . '/fixtures/' . $name;
+        $path = $this->getFixturesPath() . '/' . $name;
         if (!file_exists($path)) {
             throw new \RuntimeException("Fixture not found: $path");
         }
@@ -315,11 +355,25 @@ INI;
     }
 
     /**
-     * Get the path to the fixtures directory.
+     * Load a fixture file and parse as JSON.
+     *
+     * @param string $name Fixture filename.
+     * @return array Parsed JSON.
      */
-    protected function getFixturesPath(): string
+    protected function getFixtureJson(string $name): array
     {
-        return dirname(__DIR__) . '/fixtures';
+        return json_decode($this->getFixture($name), true);
+    }
+
+    /**
+     * Load a fixture file and parse as XML.
+     *
+     * @param string $name Fixture filename.
+     * @return \SimpleXMLElement
+     */
+    protected function getFixtureXml(string $name): \SimpleXMLElement
+    {
+        return new \SimpleXMLElement($this->getFixture($name));
     }
 
     /**
