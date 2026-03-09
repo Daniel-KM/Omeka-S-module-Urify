@@ -16,7 +16,7 @@ class UrifyFormFactory implements FactoryInterface
      *
      * @return \Urify\Form\UrifyForm
      */
-    public function __invoke(ContainerInterface $services, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $services, $requestedName, ?array $options = null)
     {
         /**  @var \Common\Stdlib\EasyMeta $easyMeta */
         $easyMeta = $services->get('Common\EasyMeta');
