@@ -42,6 +42,7 @@
             // Single mode: use prompt dialog as before.
             if (updateMode === 'single') {
                 CommonDialog.dialogPrompt({
+                    heading: Omeka.jsTranslate('Urify'),
                     message: message,
                     defaultValue: label,
                 }).then(confirmedLabel => {
@@ -57,7 +58,10 @@
             if (!updateMapper) {
                 const msgMapperRequired = msgContainer?.dataset.msgMapperRequired
                     || Omeka.jsTranslate('A mapper must be selected to update the matching resources.');
-                CommonDialog.dialogAlert({ message: msgMapperRequired });
+                CommonDialog.dialogAlert({
+                    heading: Omeka.jsTranslate('Urify'),
+                    message: msgMapperRequired,
+                });
                 return;
             }
 
@@ -68,7 +72,10 @@
                 .replace(/{mapper}/g, mapperLabel)
                 .replace(/{uri}/g, uri);
 
-            CommonDialog.dialogConfirm({ message: confirmMessage })
+            CommonDialog.dialogConfirm({
+                heading: Omeka.jsTranslate('Urify'),
+                message: confirmMessage,
+            })
                 .then(confirmed => {
                     if (!confirmed) {
                         return;
