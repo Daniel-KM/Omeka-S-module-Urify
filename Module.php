@@ -30,7 +30,9 @@
 namespace Urify;
 
 if (!class_exists('Common\TraitModule', false)) {
-    require_once dirname(__DIR__) . '/Common/TraitModule.php';
+    require_once file_exists(dirname(__DIR__) . '/Common/src/TraitModule.php')
+        ? dirname(__DIR__) . '/Common/src/TraitModule.php'
+        : dirname(__DIR__) . '/Common/TraitModule.php';
 }
 
 use Common\TraitModule;
@@ -59,12 +61,22 @@ class Module extends AbstractModule
         $translator = $services->get('MvcTranslator');
         $messenger = $plugins->get('messenger');
 
+        $errors = [];
+
+        if (PHP_VERSION_ID < 80100) {
+            $message = new \Omeka\Stdlib\Message(
+                $translator->translate('The module %1$s requires PHP %2$s or later.'), // @translate
+                'Urify', '8.1'
+            );
+            $errors[] = (string) $message;
+        }
+
         if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActiveVersion('Common', '3.4.81')) {
             $message = new \Omeka\Stdlib\Message(
                 $translator->translate('The module %1$s should be upgraded to version %2$s or later.'), // @translate
                 'Common', '3.4.81'
             );
-            throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message);
+            $errors[] = (string) $message;
         }
 
         if (!class_exists('ValueSuggest\Module', false)) {
@@ -72,7 +84,11 @@ class Module extends AbstractModule
                 'The module {module} is required to use this module.', // @translate
                 ['module' => 'Value Suggest']
             );
-            throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message->setTranslator($translator));
+            $errors[] = (string) $message->setTranslator($translator);
+        }
+
+        if ($errors) {
+            throw new \Omeka\Module\Exception\ModuleCannotInstallException(implode("\n", $errors));
         }
 
         if (!class_exists('Mapper\Module', false)) {

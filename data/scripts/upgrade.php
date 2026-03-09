@@ -34,10 +34,20 @@ $entityManager = $services->get('Omeka\EntityManager');
 $config = $services->get('Config');
 $basePath = $config['file_store']['local']['base_path'] ?: (OMEKA_PATH . '/files');
 
+if (PHP_VERSION_ID < 80100) {
+    $message = new \Omeka\Stdlib\Message(
+        $translate('The module %1$s requires PHP %2$s or later.'), // @translate
+        'Urify', '8.1'
+    );
+    $messenger->addError($message);
+    throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $translate('Missing requirement. Unable to upgrade.')); // @translate
+}
+
 if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActiveVersion('Common', '3.4.81')) {
     $message = new \Omeka\Stdlib\Message(
         $translate('The module %1$s should be upgraded to version %2$s or later.'), // @translate
         'Common', '3.4.81'
     );
-    throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message);
+    $messenger->addError($message);
+    throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $translate('Missing requirement. Unable to upgrade.')); // @translate
 }
