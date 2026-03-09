@@ -3,7 +3,9 @@
 namespace Urify\Job;
 
 use Omeka\Job\AbstractJob;
-use OpenSpout\Writer\Common\Creator\WriterEntityFactory;
+use OpenSpout\Common\Entity\Cell\StringCell;
+use OpenSpout\Common\Entity\Row;
+use OpenSpout\Writer\ODS\Writer;
 use Doctrine\DBAL\Query\QueryBuilder;
 
 class UrifyValues extends AbstractJob
@@ -456,7 +458,7 @@ class UrifyValues extends AbstractJob
        $filepath = $basePath . '/result/urify/' . $filename;
 
        try {
-           $writer = WriterEntityFactory::createODSWriter();
+           $writer = new Writer();
            $writer
                ->setTempFolder($tempDir)
                ->openToFile($filepath);
@@ -469,7 +471,10 @@ class UrifyValues extends AbstractJob
                $this->translator->translate('Proposed label'), // @translate
                $this->translator->translate('Proposed uri'), // @translate
            ];
-           $writer->addRow(WriterEntityFactory::createRowFromArray($headers));
+           $writer->addRow(new Row(array_map(
+               fn($v) => new StringCell((string) $v, null),
+               $headers
+           )));
 
            // Write data rows.
            foreach ($jobArgs['results'] as $property => $resultForProperty) foreach ($resultForProperty as $result) {
@@ -479,14 +484,20 @@ class UrifyValues extends AbstractJob
                $rowData[] = $result['label'] ?? '';
                $baseRowData = $rowData;
                if (empty($result['uris'])) {
-                   $writer->addRow(WriterEntityFactory::createRowFromArray($rowData));
+                   $writer->addRow(new Row(array_map(
+                       fn($v) => new StringCell((string) $v, null),
+                       $rowData
+                   )));
                    continue;
                }
                foreach ($result['uris'] as $uri => $label) {
                    $rowData = $baseRowData;
                    $rowData[] = $label;
                    $rowData[] = $uri;
-                   $writer->addRow(WriterEntityFactory::createRowFromArray($rowData));
+                   $writer->addRow(new Row(array_map(
+                       fn($v) => new StringCell((string) $v, null),
+                       $rowData
+                   )));
                }
            }
 
