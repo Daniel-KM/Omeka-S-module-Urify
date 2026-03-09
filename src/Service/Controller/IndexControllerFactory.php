@@ -2,7 +2,7 @@
 
 namespace Urify\Service\Controller;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Urify\Controller\Admin\IndexController;
 
