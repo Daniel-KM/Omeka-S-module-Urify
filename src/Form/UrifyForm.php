@@ -149,7 +149,7 @@ use Omeka\Form\Element as OmekaElement;
                 'options' => [
                     'label' => $hasMapper
                         ? 'Properties to search (mapper) and to urify (single mode)' // @translate
-                        : 'Properties to search and ti urify', // @translate
+                        : 'Properties to search and to urify', // @translate
                     'term_as_value' => true,
                     'used_terms' => true,
                     'empty_option' => '',

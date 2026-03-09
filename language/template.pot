@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-10 12:31+0100\n"
+"POT-Creation-Date: 2026-03-09 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,28 +17,41 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/scripts/upgrade.php:39 Module.php:58
+#: data/scripts/upgrade.php:39 Module.php:68
+#, php-format
+msgid "The module %1$s requires PHP %2$s or later."
+msgstr ""
+
+#: data/scripts/upgrade.php:43 data/scripts/upgrade.php:52
+msgid "Missing requirement. Unable to upgrade."
+msgstr ""
+
+#: data/scripts/upgrade.php:48 Module.php:76
 #, php-format
 msgid "The module %1$s should be upgraded to version %2$s or later."
 msgstr ""
 
-#: src/Controller/Admin/IndexController.php:233
+#: src/Controller/Admin/IndexController.php:248
 msgid "Missing required parameters."
 msgstr ""
 
-#: src/Job/UrifyValues.php:467
-msgid "First item"
-msgstr ""
-
-#: src/Job/UrifyValues.php:468
-msgid "Original value"
+#: src/Controller/Admin/IndexController.php:259
+msgid "A mapper is required when using mode \"multiple\"."
 msgstr ""
 
 #: src/Job/UrifyValues.php:469
-msgid "Proposed label"
+msgid "First item"
 msgstr ""
 
 #: src/Job/UrifyValues.php:470
+msgid "Original value"
+msgstr ""
+
+#: src/Job/UrifyValues.php:471
+msgid "Proposed label"
+msgstr ""
+
+#: src/Job/UrifyValues.php:472
 msgid "Proposed uri"
 msgstr ""
 
@@ -47,8 +60,13 @@ msgid "Prepare"
 msgstr ""
 
 #: view/urify/admin/index/add.phtml:18 view/urify/admin/index/browse.phtml:43
-#: view/urify/admin/index/show.phtml:47
+#: view/urify/admin/index/show.phtml:51
 msgid "Urify"
+msgstr ""
+
+#: view/urify/admin/index/add.phtml:30
+msgid ""
+"The mode of update (single or multiple) can be set in the page of results."
 msgstr ""
 
 #: view/urify/admin/index/browse.phtml:60
@@ -68,7 +86,7 @@ msgstr ""
 msgid "%1$s : %2$s"
 msgstr ""
 
-#: view/urify/admin/index/browse.phtml:108 view/urify/admin/index/show.phtml:54
+#: view/urify/admin/index/browse.phtml:108 view/urify/admin/index/show.phtml:58
 msgid "Not started"
 msgstr ""
 
@@ -85,38 +103,38 @@ msgstr ""
 msgid "No urification."
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:47
+#: view/urify/admin/index/show.phtml:51
 #, php-format
 msgid "Job #%d"
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:61
+#: view/urify/admin/index/show.phtml:65
 #, php-format
 msgid "See %1$sspreadsheet%2$s."
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:64
+#: view/urify/admin/index/show.phtml:68
 #, php-format
 msgid "See errors in job %1$slogs%2$s and %3$sparams%2$s."
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:65
+#: view/urify/admin/index/show.phtml:69
 #, php-format
 msgid "See job %1$slogs%2$s and %3$sparams%2$s."
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:76
+#: view/urify/admin/index/show.phtml:80
 #, php-format
 msgid "The job was run on resources matching this %1$squery%2$s."
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:77
+#: view/urify/admin/index/show.phtml:81
 msgid ""
 "Warning: this query is not included in the links below, but is used when "
 "urifying values."
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:85
+#: view/urify/admin/index/show.phtml:90
 msgid ""
 "Replace value: {value}\n"
 "with label: {label}\n"
@@ -126,7 +144,7 @@ msgid ""
 "Edit the label if wanted or remove it to keep the current one:"
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:93
+#: view/urify/admin/index/show.phtml:98
 msgid ""
 "Replace value: {value}\n"
 "with label: {label}\n"
@@ -136,243 +154,323 @@ msgid ""
 "Edit the label if wanted or remove it to keep the current one:"
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:108
+#: view/urify/admin/index/show.phtml:107
+msgid ""
+"Apply the mapper:\n"
+"{mapper}\n"
+"to queryied resources with values fetched from uri:\n"
+"{uri}"
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:113
+msgid ""
+"Apply the mapper:\n"
+"{mapper}\n"
+"to all resources with values fetched from uri:\n"
+"{uri}"
+msgstr ""
+
+#: view/urify/admin/index/show.phtml:132
 #, php-format
 msgid "Property: %1$s%2$s : %3$s%4$s"
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:109
+#: view/urify/admin/index/show.phtml:133
 #, php-format
 msgid "Number of values: %d."
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:110
+#: view/urify/admin/index/show.phtml:134
 #, php-format
 msgid "Number of uris: %d."
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:117
+#: view/urify/admin/index/show.phtml:141
 msgid "Uris"
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:125
+#: view/urify/admin/index/show.phtml:149
 #, php-format
 msgid "First resources on a total of %d"
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:128
+#: view/urify/admin/index/show.phtml:152
 #, php-format
 msgid "#%d"
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:138
+#: view/urify/admin/index/show.phtml:162
 msgid "Update queried resources with this uri"
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:138
+#: view/urify/admin/index/show.phtml:162
 msgid "Update all resources with this uri"
 msgstr ""
 
-#: view/urify/admin/index/show.phtml:159
+#: view/urify/admin/index/show.phtml:183
 msgid "No results."
 msgstr ""
 
-#: Module.php:66
+#: Module.php:84
 msgid "The module {module} is required to use this module."
 msgstr ""
 
-#: Module.php:84
+#: Module.php:96
+msgid ""
+"The module Mapper is needed to process multiple updates of values in "
+"resources. You still can update values one-by-one, that is the most common "
+"use case."
+msgstr ""
+
+#: Module.php:113
 msgid "The directory \"{dir}\" is not writeable."
 msgstr ""
 
-#: src/Job/UrifyValuesApply.php:109
+#: src/Job/UrifyValuesApply.php:124
 msgid "No value to replace provided."
 msgstr ""
 
-#: src/Job/UrifyValuesApply.php:115
+#: src/Job/UrifyValuesApply.php:130
 msgid "No uri to use for replacement provided."
 msgstr ""
 
-#: src/Job/UrifyValuesApply.php:120
+#: src/Job/UrifyValuesApply.php:135
 msgid "No label to use for replacement: the existing value will be kept."
 msgstr ""
 
-#: src/Job/UrifyValuesApply.php:126
+#: src/Job/UrifyValuesApply.php:141
 msgid "No property provided."
 msgstr ""
 
-#: src/Job/UrifyValuesApply.php:132 src/Job/UrifyValues.php:150
+#: src/Job/UrifyValuesApply.php:147 src/Job/UrifyValues.php:152
 msgid "No data type provided."
 msgstr ""
 
-#: src/Job/UrifyValuesApply.php:138
+#: src/Job/UrifyValuesApply.php:153
 msgid "No value types provided."
 msgstr ""
 
-#: src/Job/UrifyValuesApply.php:143
+#: src/Job/UrifyValuesApply.php:158
 msgid "The process will be done on resource matching the specified query."
 msgstr ""
 
-#: src/Job/UrifyValuesApply.php:145
+#: src/Job/UrifyValuesApply.php:160
 msgid ""
 "No query provided: the process will be done on all resources with the "
 "specified property."
 msgstr ""
 
-#: src/Job/UrifyValuesApply.php:153 src/Job/UrifyValues.php:203
+#: src/Job/UrifyValuesApply.php:176
+msgid "The module Mapper is required for mode \"multiple\"."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:185 src/Job/UrifyValues.php:205
 msgid "The module Value Suggest is required to get uris."
 msgstr ""
 
-#: src/Job/UrifyValuesApply.php:175 src/Job/UrifyValues.php:225
+#: src/Job/UrifyValuesApply.php:207 src/Job/UrifyValues.php:227
 msgid "The data type {data_type} is not available."
 msgstr ""
 
-#: src/Job/UrifyValuesApply.php:205
+#: src/Job/UrifyValuesApply.php:243 src/Job/UrifyValuesApply.php:454
 msgid "The query returned no resources."
 msgstr ""
 
-#: src/Job/UrifyValuesApply.php:251 src/Job/UrifyValuesApply.php:308
+#: src/Job/UrifyValuesApply.php:289 src/Job/UrifyValuesApply.php:346
 msgid "Urification ended for {count} resources: {resource_ids}"
 msgstr ""
 
-#: src/Job/UrifyValuesApply.php:255 src/Job/UrifyValues.php:278
+#: src/Job/UrifyValuesApply.php:293 src/Job/UrifyValuesApply.php:504
+#: src/Job/UrifyValues.php:280
 msgid "The job was stopped."
 msgstr ""
 
-#: src/Job/UrifyValues.php:135
+#: src/Job/UrifyValuesApply.php:376
+msgid "Unable to load mapper \"{mapper}\": {error}"
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:402
+msgid "Unable to fetch data from URI \"{uri}\": {error}"
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:410
+msgid "Unable to fetch data from URI \"{uri}\": HTTP {status}"
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:423
+msgid "Invalid XML from URI \"{uri}\": {error}"
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:434
+msgid "No values mapped from URI \"{uri}\" using mapper \"{mapper}\"."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:441
+msgid "Mapped {count} properties from URI \"{uri}\"."
+msgstr ""
+
+#: src/Job/UrifyValuesApply.php:500 src/Job/UrifyValuesApply.php:570
+msgid "Urification (multiple) ended for {count} resources: {resource_ids}"
+msgstr ""
+
+#: src/Job/UrifyValues.php:137
 msgid "No processes defined."
 msgstr ""
 
-#: src/Job/UrifyValues.php:144
+#: src/Job/UrifyValues.php:146
 msgid "No properties provided."
 msgstr ""
 
-#: src/Job/UrifyValues.php:174
+#: src/Job/UrifyValues.php:176
 msgid "No source data types provided."
 msgstr ""
 
-#: src/Job/UrifyValues.php:191 src/Job/UrifyValues.php:357
+#: src/Job/UrifyValues.php:193 src/Job/UrifyValues.php:359
 msgid "The process to check uris is not yet implemented."
 msgstr ""
 
-#: src/Job/UrifyValues.php:195
+#: src/Job/UrifyValues.php:197
 msgid "No source data types matching options."
 msgstr ""
 
-#: src/Job/UrifyValues.php:308
+#: src/Job/UrifyValues.php:310
 msgid ""
 "No resources found for property {property} with the given query and data "
 "types."
 msgstr ""
 
-#: src/Job/UrifyValues.php:339
+#: src/Job/UrifyValues.php:341
 msgid ""
 "No literal values found for property {property} and specified data types."
 msgstr ""
 
-#: src/Job/UrifyValues.php:346
+#: src/Job/UrifyValues.php:348
 msgid "Processing {total} values for property {property}."
 msgstr ""
 
-#: src/Job/UrifyValues.php:386
+#: src/Job/UrifyValues.php:388
 msgid ""
 "The provided label \"{label}\" is not trimmed. It is recommended to run the "
 "Easy Admin tasks to clean values."
 msgstr ""
 
-#: src/Job/UrifyValues.php:396
+#: src/Job/UrifyValues.php:398
 msgid ""
 "Property {property}: The label is an empty string. Resources: {resource_ids}."
 msgstr ""
 
-#: src/Job/UrifyValues.php:438
+#: src/Job/UrifyValues.php:440
 msgid "No results to export to spreadsheet."
 msgstr ""
 
-#: src/Job/UrifyValues.php:496
+#: src/Job/UrifyValues.php:507
 msgid "Spreadsheet created: {url}"
 msgstr ""
 
-#: src/Job/UrifyValues.php:507
+#: src/Job/UrifyValues.php:518
 msgid "Failed to create spreadsheet: {message}"
 msgstr ""
 
-#: src/Job/UrifyValues.php:527
+#: src/Job/UrifyValues.php:538
 msgid "The directory \"{path}\" is not writeable."
 msgstr ""
 
-#: src/Job/UrifyValues.php:538
+#: src/Job/UrifyValues.php:549
 msgid "The directory \"{path}\" is not writeable: {error}."
 msgstr ""
 
-#: src/Form/UrifyForm.php:88
+#: src/Form/UrifyForm.php:92
 msgid "label"
 msgstr ""
 
-#: src/Form/UrifyForm.php:128
-msgid "Data type to urify"
+#: src/Form/UrifyForm.php:133
+msgid "Source of data for urification"
 msgstr ""
 
-#: src/Form/UrifyForm.php:137
-msgid "Select a data type…"
+#: src/Form/UrifyForm.php:142
+msgid "Select a source…"
 msgstr ""
 
-#: src/Form/UrifyForm.php:145
-msgid "For properties"
+#: src/Form/UrifyForm.php:151
+msgid "Properties to search (mapper) and to urify (single mode)"
 msgstr ""
 
-#: src/Form/UrifyForm.php:155
+#: src/Form/UrifyForm.php:152
+msgid "Properties to search and to urify"
+msgstr ""
+
+#: src/Form/UrifyForm.php:162
 msgid "Select properties…"
 msgstr ""
 
-#: src/Form/UrifyForm.php:163
+#: src/Form/UrifyForm.php:170
 msgid "Value types to process"
 msgstr ""
 
-#: src/Form/UrifyForm.php:167
+#: src/Form/UrifyForm.php:174
 msgid "Literal"
 msgstr ""
 
-#: src/Form/UrifyForm.php:169
+#: src/Form/UrifyForm.php:176
 msgid "Custom vocabs (literal)"
 msgstr ""
 
-#: src/Form/UrifyForm.php:187
+#: src/Form/UrifyForm.php:194
 msgid "Language code to improve request and response for some endpoints"
 msgstr ""
 
-#: src/Form/UrifyForm.php:198
+#: src/Form/UrifyForm.php:205
 msgid "Query to filter resources to process"
 msgstr ""
 
-#: src/Controller/Admin/IndexController.php:62
+#: src/Form/UrifyMapperForm.php:21
+msgid "Update mode of values"
+msgstr ""
+
+#: src/Form/UrifyMapperForm.php:24
+msgid "Single value"
+msgstr ""
+
+#: src/Form/UrifyMapperForm.php:25
+msgid "Mapper selected below"
+msgstr ""
+
+#: src/Form/UrifyMapperForm.php:37
+msgid "Mapper to use"
+msgstr ""
+
+#: src/Form/UrifyMapperForm.php:44
+msgid "Select a mapper…"
+msgstr ""
+
+#: src/Controller/Admin/IndexController.php:61
 msgid "No properties defined."
 msgstr ""
 
-#: src/Controller/Admin/IndexController.php:68
+#: src/Controller/Admin/IndexController.php:67
 msgid "No process defined."
 msgstr ""
 
-#: src/Controller/Admin/IndexController.php:77
+#: src/Controller/Admin/IndexController.php:76
 msgid "No value types defined."
 msgstr ""
 
-#: src/Controller/Admin/IndexController.php:83
+#: src/Controller/Admin/IndexController.php:82
 msgid "No destination data type defined."
 msgstr ""
 
-#: src/Controller/Admin/IndexController.php:127
+#: src/Controller/Admin/IndexController.php:126
 msgid ""
 "Processing search of {link_result}values to urify{link_end} in background "
 "(job {link_job}#{job_id}{link_end}, {link_log}logs{link_end})."
 msgstr ""
 
-#: src/Controller/Admin/IndexController.php:264
+#: src/Controller/Admin/IndexController.php:299
 msgid ""
 "Processing {link_result}urification{link_end} of values in background (job "
 "{link_job}#{job_id}{link_end}, {link_log}logs{link_end})."
 msgstr ""
 
-#: config/module.config.php:71
+#: config/module.config.php:73
 msgid "Urify values"
 msgstr ""
