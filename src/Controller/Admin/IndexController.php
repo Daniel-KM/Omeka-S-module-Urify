@@ -125,13 +125,13 @@ class IndexController extends AbstractActionController
         $message = new PsrMessage(
             'Processing search of {link_result}values to urify{link_end} in background (job {link_job}#{job_id}{link_end}, {link_log}logs{link_end}).', // @translate
             [
-                'link_result' => sprintf('<a href="%s">', $urlPlugin->fromRoute('admin/urify/id', ['id' => $job->getId()])),
+                'link_result' => sprintf('<a href="%s">', htmlspecialchars($urlPlugin->fromRoute('admin/urify/id', ['id' => $job->getId()]))),
                 'link_job' => sprintf('<a href="%s">', htmlspecialchars($urlPlugin->fromRoute('admin/id', ['controller' => 'job', 'id' => $job->getId()]))),
                 'job_id' => $job->getId(),
                 'link_end' => '</a>',
                 'link_log' => class_exists('Log\Module', false)
-                    ? sprintf('<a href="%1$s">', $urlPlugin->fromRoute('admin/default', ['controller' => 'log'], ['query' => ['job_id' => $job->getId()]]))
-                    : sprintf('<a href="%1$s" target="_blank">', $urlPlugin->fromRoute('admin/id', ['controller' => 'job', 'action' => 'log', 'id' => $job->getId()])),
+                    ? sprintf('<a href="%1$s">', htmlspecialchars($urlPlugin->fromRoute('admin/default', ['controller' => 'log'], ['query' => ['job_id' => $job->getId()]])))
+                    : sprintf('<a href="%1$s" target="_blank" rel="noopener noreferrer">', htmlspecialchars($urlPlugin->fromRoute('admin/id', ['controller' => 'job', 'action' => 'log', 'id' => $job->getId()]))),
             ]
         );
         $message->setEscapeHtml(false);
@@ -298,13 +298,13 @@ class IndexController extends AbstractActionController
         $message = new PsrMessage(
             'Processing {link_result}urification{link_end} of values in background (job {link_job}#{job_id}{link_end}, {link_log}logs{link_end}).', // @translate
             [
-                'link_result' => sprintf('<a href="%s">', $urlPlugin->fromRoute('admin/urify/id', ['id' => $id])),
+                'link_result' => sprintf('<a href="%s">', htmlspecialchars($urlPlugin->fromRoute('admin/urify/id', ['id' => $id]))),
                 'link_job' => sprintf('<a href="%s">', htmlspecialchars($urlPlugin->fromRoute('admin/id', ['controller' => 'job', 'id' => $job->getId()]))),
                 'job_id' => $job->getId(),
                 'link_end' => '</a>',
                 'link_log' => class_exists('Log\Module', false)
-                    ? sprintf('<a href="%1$s">', $urlPlugin->fromRoute('admin/default', ['controller' => 'log'], ['query' => ['job_id' => $job->getId()]]))
-                    : sprintf('<a href="%1$s" target="_blank">', $urlPlugin->fromRoute('admin/id', ['controller' => 'job', 'action' => 'log', 'id' => $job->getId()])),
+                    ? sprintf('<a href="%1$s">', htmlspecialchars($urlPlugin->fromRoute('admin/default', ['controller' => 'log'], ['query' => ['job_id' => $job->getId()]])))
+                    : sprintf('<a href="%1$s" target="_blank" rel="noopener noreferrer">', htmlspecialchars($urlPlugin->fromRoute('admin/id', ['controller' => 'job', 'action' => 'log', 'id' => $job->getId()]))),
             ]
         );
         $message->setEscapeHtml(false);
