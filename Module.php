@@ -111,7 +111,7 @@ class Module extends AbstractModule
         if (!$this->checkDestinationDir($basePath . '/result/urify')) {
             $message = new \Common\Stdlib\PsrMessage(
                 'The directory "{dir}" is not writeable.', // @translate
-                ['dir' => $basePath]
+                ['dir' => $basePath . '/result/urify']
             );
             throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message->setTranslator($translator));
         }
