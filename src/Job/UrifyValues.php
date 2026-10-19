@@ -505,7 +505,7 @@ class UrifyValues extends AbstractJob
 
            $this->logger->notice(
                'Spreadsheet created: {url}', // @translate
-               ['url' => $baseUrl . '/result/urify/' . $filename]
+               ['url' => $urlHelper('admin/urify/id', ['id' => $this->job->getId(), 'action' => 'download'])]
            );
 
            // Store filename in job args

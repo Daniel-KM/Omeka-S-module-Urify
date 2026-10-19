@@ -311,4 +311,36 @@ class IndexController extends AbstractActionController
 
         return $this->jSend()->success(['args' => $args],$message);
     }
+
+    /**
+     * Download the result spreadsheet of a job, confined to its directory.
+     *
+     * The api read of the job enforces the access rights (the owner of the job
+     * or an administrator), so the file is not reachable through a public url.
+     */
+    public function downloadAction()
+    {
+        $id = $this->params('id');
+        try {
+            $job = $this->api()->read('jobs', ['id' => $id, 'class' => UrifyValues::class])->getContent();
+        } catch (\Throwable $e) {
+            throw new NotFoundException();
+        }
+
+        $filename = basename((string) ($job->args()['spreadsheet'] ?? ''));
+        if (!$filename) {
+            throw new NotFoundException();
+        }
+
+        $config = $this->getEvent()->getApplication()->getServiceManager()->get('Config');
+        $basePath = $config['file_store']['local']['base_path'] ?: (OMEKA_PATH . '/files');
+        $baseDir = $basePath . '/result/urify';
+
+        $response = $this->sendFilePrivate($baseDir . '/' . $filename, $baseDir);
+        if (!$response) {
+            throw new NotFoundException();
+        }
+
+        return $response;
+    }
 }
