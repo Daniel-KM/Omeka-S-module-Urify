@@ -513,7 +513,7 @@ class UrifyValues extends AbstractJob
            $this->job->setArgs($jobArgs);
            $this->entityManager->persist($this->job);
 
-       } catch (\Exception $e) {
+       } catch (\Throwable $e) {
            $this->logger->err(
                'Failed to create spreadsheet: {message}', // @translate
                ['message' => $e->getMessage()]

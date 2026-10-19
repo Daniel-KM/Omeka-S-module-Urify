@@ -297,7 +297,7 @@ class UrifyValuesApply extends AbstractJob
             try {
                 /** @var \Omeka\Api\Representation\ItemRepresentation $item */
                 $item = $this->api->read('items', ['id' => $resourceId])->getContent();
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 continue;
             }
 
@@ -371,7 +371,7 @@ class UrifyValuesApply extends AbstractJob
             : $updateMapper;
         try {
             $this->mapper->setMapping('urify', $mapperRef);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->logger->err(
                 'Unable to load mapper "{mapper}": {error}', // @translate
                 ['mapper' => $this->arguments['updateMapper'], 'error' => $e->getMessage()]
@@ -397,7 +397,7 @@ class UrifyValuesApply extends AbstractJob
 
         try {
             $response = $this->httpClient->send();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->logger->err(
                 'Unable to fetch data from URI "{uri}": {error}', // @translate
                 ['uri' => $uri, 'error' => $e->getMessage()]
@@ -418,7 +418,7 @@ class UrifyValuesApply extends AbstractJob
         // 3. Parse xml.
         try {
             $simpleXml = new \SimpleXMLElement($xmlContent);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->logger->err(
                 'Invalid XML from URI "{uri}": {error}', // @translate
                 ['uri' => $uri, 'error' => $e->getMessage()]
@@ -509,7 +509,7 @@ class UrifyValuesApply extends AbstractJob
             try {
                 /** @var \Omeka\Api\Representation\ItemRepresentation $item */
                 $item = $this->api->read('items', ['id' => $resourceId])->getContent();
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 continue;
             }
 

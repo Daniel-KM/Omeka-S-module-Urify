@@ -173,7 +173,7 @@ class IndexController extends AbstractActionController
         try {
             /** @var \Omeka\Api\Representation\JobRepresentation $job */
             $job = $this->api()->read('jobs', ['id' => $id, 'class' => UrifyValues::class])->getContent();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             throw new NotFoundException();
         }
 
@@ -221,7 +221,7 @@ class IndexController extends AbstractActionController
         try {
             /** @var \Omeka\Api\Representation\JobRepresentation $job */
             $job = $this->api()->read('jobs', ['id' => $id, 'class' => UrifyValues::class])->getContent();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return $this->jSend()->fail(null, $this->translate(
                 'Not found', // @translate
             ), HttpResponse::STATUS_CODE_404);
