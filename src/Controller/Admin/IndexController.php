@@ -118,7 +118,7 @@ class IndexController extends AbstractActionController
         /** @var \Omeka\Mvc\Controller\Plugin\JobDispatcher $dispatcher */
         // Use synchronous dispatcher for quick testing purpose.
         $strategy = null;
-        // $strategy = $this->api()->read('vocabularies', 1)->getContent()->getServiceLocator()->get(\Omeka\Job\DispatchStrategy\Synchronous::class);
+        // $strategy = $this->getEvent()->getApplication()->getServiceManager()->get(\Omeka\Job\DispatchStrategy\Synchronous::class);
         $dispatcher = $this->jobDispatcher();
         $job = $dispatcher->dispatch(UrifyValues::class, $args, $strategy);
         $urlPlugin = $this->url();
@@ -155,7 +155,7 @@ class IndexController extends AbstractActionController
         $response = $this->api()->search('jobs', $query);
         $this->paginator($response->getTotalResults());
 
-        $services = $this->api()->read('vocabularies', 1)->getContent()->getServiceLocator();
+        $services = $this->getEvent()->getApplication()->getServiceManager();
         $config = $services->get('Config');
         $baseUrlFiles = $config['file_store']['local']['base_uri'] ?: $services->get('Router')->getBaseUrl() . '/files';
 
@@ -291,7 +291,7 @@ class IndexController extends AbstractActionController
         /** @var \Omeka\Mvc\Controller\Plugin\JobDispatcher $dispatcher */
         // Use synchronous dispatcher for quick testing purpose.
         $strategy = null;
-        // $strategy = $this->api()->read('vocabularies', 1)->getContent()->getServiceLocator()->get(\Omeka\Job\DispatchStrategy\Synchronous::class);
+        // $strategy = $this->getEvent()->getApplication()->getServiceManager()->get(\Omeka\Job\DispatchStrategy\Synchronous::class);
         $dispatcher = $this->jobDispatcher();
         $job = $dispatcher->dispatch(UrifyValuesApply::class, $args, $strategy);
         $urlPlugin = $this->url();
