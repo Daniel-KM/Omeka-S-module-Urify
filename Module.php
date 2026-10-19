@@ -110,15 +110,23 @@ class Module extends AbstractModule
             $errors[] = (string) $message->setTranslator($translator);
         }
 
+        if ($this->isModuleActive('Mapper')
+            && !$this->isModuleVersionAtLeast('Mapper', '3.4.9')
+        ) {
+            $errors[] = (string) (new \Common\Stdlib\PsrMessage(
+                'The module {module} should be upgraded to version {version} or later.', // @translate
+                ['module' => 'Mapper', 'version' => '3.4.9']
+            ))->setTranslator($translator);
+        }
+
         if ($errors) {
             throw new \Omeka\Module\Exception\ModuleCannotInstallException(implode("\n", $errors));
         }
 
-        if (!class_exists('Mapper\Module', false)) {
-            $message = new \Common\Stdlib\PsrMessage(
+        if (!$this->isModuleActive('Mapper')) {
+            $messenger->addNotice((string) (new \Common\Stdlib\PsrMessage(
                 'The module Mapper is needed to process multiple updates of values in resources. You still can update values one-by-one, that is the most common use case.' // @translate
-            );
-            $messenger->addNotice((string) $message->setTranslator($translator));
+            ))->setTranslator($translator));
         }
 
         $this->installDirs();

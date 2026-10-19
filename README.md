@@ -141,7 +141,7 @@ This module was designed for the [digital library Manioc] of the [Université de
 [Value Suggest]: https://omeka.org/s/modules/ValueSuggest
 [Bulk Edit]: https://gitlab.com/Daniel-KM/Omeka-S-module-BulkEdit
 [installing a module]: https://omeka.org/s/docs/user-manual/modules/
-[Urify.zip]: https://github.com/Daniel-KM/Omeka-S-module-Urify/releases
+[Urify.zip]: https://gitlab.com/Daniel-KM/Omeka-S-module-Urify/-/releases
 [module issues]: https://gitlab.com/Daniel-KM/Omeka-S-module-Urify/issues
 [Common]: https://gitlab.com/Daniel-KM/Omeka-S-module-Common
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html

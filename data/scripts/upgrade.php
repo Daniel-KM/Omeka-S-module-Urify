@@ -2,6 +2,8 @@
 
 namespace Urify;
 
+use Common\Stdlib\PsrMessage;
+
 /**
  * @var Module $this
  * @var \Laminas\ServiceManager\ServiceLocatorInterface $services
@@ -20,7 +22,8 @@ namespace Urify;
  * @var \Omeka\Mvc\Controller\Plugin\Messenger $messenger
  */
 $plugins = $services->get('ControllerPluginManager');
-$url = $services->get('ViewHelperManager')->get('url');
+$helpers = $services->get('ViewHelperManager');
+$url = $helpers->get('url');
 $api = $plugins->get('api');
 $logger = $services->get('Omeka\Logger');
 $settings = $services->get('Omeka\Settings');
@@ -47,6 +50,17 @@ if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActi
     $message = new \Omeka\Stdlib\Message(
         $translate('The module %1$s should be upgraded to version %2$s or later.'), // @translate
         'Common', '3.4.94'
+    );
+    $messenger->addError($message);
+    throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $translate('Missing requirement. Unable to upgrade.')); // @translate
+}
+
+if ($this->isModuleActive('Mapper')
+    && !$this->isModuleVersionAtLeast('Mapper', '3.4.9')
+) {
+    $message = new PsrMessage(
+        'The module {module} should be upgraded to version {version} or later.', // @translate
+        ['module' => 'Mapper', 'version' => '3.4.9']
     );
     $messenger->addError($message);
     throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $translate('Missing requirement. Unable to upgrade.')); // @translate
